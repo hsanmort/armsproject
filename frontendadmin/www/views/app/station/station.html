@@ -1,0 +1,23 @@
+<ion-view class="station-view">
+  <ion-nav-title>
+    <span>Stations</span>
+  </ion-nav-title>
+ <ion-content ng-cloak ng-controller="StationCtrl as station" ng-init="station.get()">
+        <!-- <form class="list" ng-submit="station.createStation(station.newStation)">
+        <h3>Add a Station:</h3>
+        <label for="newStationName">
+          <input type="text" autofocus id="newStationName"placeholder="Ex: Washington" ng-model="station.newStation.name">
+        </label>
+        <button class="button button-block button-calm">Submit</button>
+        </form> -->
+        <ion-list>
+        <div class="card">
+          <ion-item class="item-button-right" ng-cloak data-ng-repeat="s in station.station">
+            <strong>{{s.name}}</strong>
+            <ion-option-button ng-click="station.updateStation(s)" class="button-assertive">Edit</ion-option-button>
+            <ion-option-button data-ng-click="station.deleteSStation(s)" class="button icon button-icon ion-trash-a"></ion-option-button>
+          </ion-item>
+        </div>
+        </ion-list>
+      </ion-content>
+</ion-view>
