@@ -52,6 +52,10 @@ var apiStation = require('./app/routes/station-route');
 // connect the api routes under /api/*
 app.use('/station', apiStation);
 
+var apiBus = require('./app/routes/bus-route');
+// connect the api routes under /api/*
+app.use('/bus', apiBus);
+
 // Start the server
 app.listen(port);
 console.log('There will be dragons: http://localhost:' + port);

@@ -46,7 +46,7 @@ angular.module('starter.services', [])
 
   var login = function(user) {
     return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + '/authenticateadmin', user).then(function(result) {
+      $http.post(API_ENDPOINT.url + 'admin/authenticateadmin', user).then(function(result) {
         if (result.data.success) {
           storeUserCredentials(result.data.token);
           resolve(result.data.msg);

@@ -7,7 +7,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BusSchema =new Schema({
-    available: {type: Boolean, index:true, required: true},
+	
+    available: {type: Boolean, required: true},
     speed: {type: Number, required: true},
     numberp:{type: Number, required: true}
 
