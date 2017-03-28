@@ -10,8 +10,8 @@ angular.module('starter.config', [])
 
 .constant('USER_ROLES', {
   admin: 'admin_role',
-  adminvoyage: 'admin_role',
-  adminpaiement: 'adminpayrole_role',
+  adminvoyage: 'adminvoy_role',
+  adminpaiement: 'adminpay_role',
   guichetier: 'guichetier_role',
   chefsecteur: 'chefsecteur_role'
 })

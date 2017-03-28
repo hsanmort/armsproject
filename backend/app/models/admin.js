@@ -20,6 +20,9 @@ var AdminSchema =new Schema({
         , login: { type: String, lowercase: true }
 
         , password: { type: String, required: true}
+        
+        , role : { type: String, required: true}
+
 
 
     }

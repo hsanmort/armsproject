@@ -74,7 +74,7 @@ apiAdmin.get('/memberinfoadmin', passport.authenticate('jwt',{session: false}),f
             if (!admin){
                 return res.status(403).send({success: false, msg:"Authentifaiction failed" });
             }else {
-                return res.json({success: true,msg: "Welcome to the member area "+admin.User.name});
+                return res.json({success: true,admin: admin});
             }
 
         });

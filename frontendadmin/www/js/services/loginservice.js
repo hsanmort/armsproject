@@ -4,8 +4,9 @@ angular.module('starter.services', [])
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var isAuthenticated = false;
   var authToken;
-
+  var role = '';
   function loadUserCredentials() {
+
     var token = window.localStorage.getItem(LOCAL_TOKEN_KEY);
     if (token) {
       useCredentials(token);
@@ -20,7 +21,6 @@ angular.module('starter.services', [])
   function useCredentials(token) {
     isAuthenticated = true;
     authToken = token;
-
     // Set the token as header for your requests!
     $http.defaults.headers.common.Authorization = authToken;
   }
@@ -28,6 +28,7 @@ angular.module('starter.services', [])
   function destroyUserCredentials() {
     authToken = undefined;
     isAuthenticated = false;
+    role='';
     $http.defaults.headers.common.Authorization = undefined;
     window.localStorage.removeItem(LOCAL_TOKEN_KEY);
   }
@@ -57,8 +58,28 @@ angular.module('starter.services', [])
     });
   };
 
+  var getinfo = function() {
+    
+    return $q(function(resolve, reject) {
+      $http.get(API_ENDPOINT.url + '/memberinfoadmin', window.localStorage.getItem(LOCAL_TOKEN_KEY)).then(function(result) {
+        if (result.data.admin) {
+          resolve(result.data.admin);
+        } else {
+          reject(result.data.msg);
+        }
+      });
+    });
+  };
+  
   var logout = function() {
     destroyUserCredentials();
+  };
+
+  var isAuthorized = function(authorizedRoles) {
+    if (!angular.isArray(authorizedRoles)) {
+      authorizedRoles = [authorizedRoles];
+    }
+    return (isAuthenticated && authorizedRoles.indexOf(role) !== -1);
   };
 
   loadUserCredentials();
@@ -67,7 +88,9 @@ angular.module('starter.services', [])
     login: login,
     register: register,
     logout: logout,
-    isAuthenticated: function() {return isAuthenticated;},
+    isAuthorized: isAuthorized,
+    getinfo: getinfo,
+    isAuthenticated: function() {return isAuthenticated;}
   };
 })
 
@@ -76,6 +99,7 @@ angular.module('starter.services', [])
     responseError: function (response) {
       $rootScope.$broadcast({
         401: AUTH_EVENTS.notAuthenticated,
+        403: AUTH_EVENTS.notAuthorized
       }[response.status], response);
       return $q.reject(response);
     }

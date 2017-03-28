@@ -1,11 +1,17 @@
 angular.module('starter.controllers')
 
-.controller('AppCtrl', function($scope, $ionicConfig) {
+.controller('AppCtrl', function($scope,AuthService, $ionicConfig) {
+			
+	AuthService.getinfo().then(function(result){
+	 
+	 	$scope.user=result;
+		console.log($scope.user);
+	});
 
 })
 
-.controller('ProfileCtrl', function($scope) {
-	$scope.image = 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg';
+.controller('ProfileCtrl', function($scope,AuthService) {
+
 })
 
 .controller('MapsCtrl', function($scope, $ionicLoading) {

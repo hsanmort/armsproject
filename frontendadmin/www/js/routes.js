@@ -1,6 +1,6 @@
-angular.module('starter.routes', [])
+angular.module('starter.routes', ['starter.config'])
 
-.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, USER_ROLES) {
   $stateProvider
 
   //INTRO
@@ -37,7 +37,7 @@ angular.module('starter.routes', [])
     url: "/app",
     abstract: true,
     templateUrl: "views/app/side-menu.html",
-    controller: 'AppCtrl'
+    controller: 'AppCtrl',
   })
 
   //MISCELLANEOUS
@@ -49,6 +49,9 @@ angular.module('starter.routes', [])
         templateUrl: "views/app/miscellaneous/maps.html",
         controller: 'MapsCtrl'
       }
+    },
+    data: {
+      authorizedRoles: [USER_ROLES.adminpaiement]
     }
   })
 
