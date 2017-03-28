@@ -99,7 +99,7 @@ angular.module('starter', [
   .state('auth.signup', {
     url: '/signup',
     templateUrl: "views/auth/signup.html",
-    controller: 'SignupCtrl'
+    controller: 'RegisterCtrl'
   })
 
   .state('auth.forgot-password', {
@@ -279,5 +279,5 @@ angular.module('starter', [
 ;
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/auth/walkthrough');
+  $urlRouterProvider.otherwise('/app/miscellaneous/maps');
 });
