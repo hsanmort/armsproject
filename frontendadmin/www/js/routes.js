@@ -54,14 +54,14 @@ angular.module('starter.routes', [])
   //Station
 
   .state('app.station', {
-    url: "/station/",
+    url: "/station",
     views: {
       'menuContent': {
         templateUrl: "views/app/station/station.html",
         controller: 'StationCtrl'
-      }
+        }
     }
-  })
+  });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/auth/walkthrough');

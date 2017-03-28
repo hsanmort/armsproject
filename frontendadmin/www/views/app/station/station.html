@@ -1,23 +1,27 @@
-<ion-view class="station-view">
-  <ion-nav-title>
-    <span>Stations</span>
-  </ion-nav-title>
- <ion-content ng-cloak ng-controller="StationCtrl as station" ng-init="station.get()">
-        <!-- <form class="list" ng-submit="station.createStation(station.newStation)">
-        <h3>Add a Station:</h3>
-        <label for="newStationName">
-          <input type="text" autofocus id="newStationName"placeholder="Ex: Washington" ng-model="station.newStation.name">
-        </label>
-        <button class="button button-block button-calm">Submit</button>
-        </form> -->
-        <ion-list>
-        <div class="card">
-          <ion-item class="item-button-right" ng-cloak data-ng-repeat="s in station.station">
-            <strong>{{s.name}}</strong>
-            <ion-option-button ng-click="station.updateStation(s)" class="button-assertive">Edit</ion-option-button>
-            <ion-option-button data-ng-click="station.deleteSStation(s)" class="button icon button-icon ion-trash-a"></ion-option-button>
-          </ion-item>
+<ion-view view-title="Gestion Station">
+    <ion-content>
+      <div class="row">
+        <div id="map" data-tap-disabled="true" class="col col-50"style="height:91vh;" ></div>
+        <div class="row col col-50">
+          <div ng-show="stationstab==1 || !stationstab ">
+            <button class=" button button-calm" ng-click="addStation()"><i  class="icon ion-android-add-circle" ></i> Ajouter Station</button>
+            <label class="item item-input ion-android-search" >
+             <input type="text" style="padding-left:10px;" placeholder="rechercher une station.." ng-model="search">
+            </label>
+            <ion-scroll zooming="true" direction="y" style="height: 500px">
+            <div class="list" style="margin-top:10px" ng-repeat="st in station |filter:search">
+              <div class="item">
+                <a  class="item-icon-left dark"style="text-decoration: none;">
+                 <i  class="icon ion-android-pin" ></i>
+                 {{st.name}}
+               </a>
+                  <a style="float:right;" class="dark" ng-click="remove({{st.idStation}})"><i class="icon item-icon-right ion-android-cancel"></i></a>
+                  <a style="float:right;" class="dark" ng-click="modifier({{st.idStation}})" ><i class="icon item-icon-right ion-android-settings"></i></a>
+             </div>
+            </div>
+          </ion-scroll>
+          </div>
         </div>
-        </ion-list>
-      </ion-content>
+        </div>
+    </ion-content>
 </ion-view>

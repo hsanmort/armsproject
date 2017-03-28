@@ -1,25 +1,22 @@
-angular.module('starter.services', [])
+angular.module('starter.services')
 
-.service('StationService', function($q, $http, API_ENDPOINT) {
+.service('StationService', function($q,$http,$timeout,$compile, API_ENDPOINT) {
 
-  var get = function() {
-    return $q(function(resolve, reject) {
-      $http.get(API_ENDPOINT.url + '/allst').then(function(result) {
-        if (result.data.success) {
-          resolve(result.data.msg);
+ var getAllStation= function() {
+	return $q(function(resolve, reject) {
+      $http.get(API_ENDPOINT.url + 'station/allst').then(function(result) {
+        if (result.data.stations) {
+          resolve(result.data.stations);
         } else {
-          reject(result.data.msg);
+          reject(result.data.stations);
         }
       });
     });
-  };
+ };
 
-  
- return {
-    get: get
-    
-  };
+ return{
+getAllStation:getAllStation
+ };
+
 
 });
-
-

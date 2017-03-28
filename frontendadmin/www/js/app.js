@@ -14,6 +14,7 @@ angular.module('starter', [
   'starter.controllers',
   'starter.routes',
   'starter.directives',
+  'starter.map',
   'starter.filters',
   'starter.services',
   'starter.config',
