@@ -22,4 +22,4 @@ var StationSchema =new Schema({
 
 
 
-module.exports = mongoose.model('Station', AdminSchema);
+module.exports = mongoose.model('Station', StationSchema);

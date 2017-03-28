@@ -48,6 +48,9 @@ var apiAdmin = require('./app/routes/admin-route');
 // connect the api routes under /api/*
 app.use('/admin', apiAdmin);
 
+var apiStation = require('./app/routes/station-route');
+// connect the api routes under /api/*
+app.use('/station', apiStation);
 
 // Start the server
 app.listen(port);
