@@ -1,6 +1,4 @@
-**
- * Created by GMI-PC on 25/03/2017.
- */
+
 var jwt         = require('jwt-simple');
 var Station    = require('../../app/models/station'); // get the mongoose model
 var passport	= require('passport');
