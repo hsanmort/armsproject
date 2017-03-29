@@ -5,11 +5,15 @@ angular.module('starter.controllers')
 .controller('StationCtrl',function($scope, $ionicPopup,StationService, $state,$cordovaGeolocation) {
 	var options = {timeout: 10000, enableHighAccuracy: true};
 	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
-		var latLng2 = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-		$scope.mapOptions2=optionInt(latLng2);
-		var $stationMap= new transMap(document.getElementById("map"),$scope.mapOptions2);
-		StationService.getAllStation().then(function(result){
-			$scope.stations=result;
+
+		var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		var mapOptions=optionInt(latLng);
+		var $stationMap= new transMap(document.getElementById("map"),mapOptions);
+			
+			StationService.getAllStation().then(function(result){
+			 
+			 	$scope.stations=result;
+
 			var marker;
 			var i=0;
 			 angular.forEach($scope.stations,function(station,index){
@@ -24,6 +28,7 @@ angular.module('starter.controllers')
 	                draggable: false,
                 	info:infowindow
                 });
+
                 $stationMap.markers.items[i].addListener('click', function() {
                   if (isInfoWindowOpen(this.info)) {
                     this.info.close();
@@ -31,15 +36,15 @@ angular.module('starter.controllers')
                     this.info.open($stationMap.gMap, this);
                   }
                 });
+
                 i++;
 			 });
-		});
-			
-});
-function isInfoWindowOpen(infoWindow){
-  var map = infoWindow.getMap();
-  return (map !== null && typeof map !== "undefined");
-}
+		});	
+	});
+	function isInfoWindowOpen(infoWindow){
+	  var map = infoWindow.getMap();
+	  return (map !== null && typeof map !== "undefined");
+	}
 });
 
 

@@ -35,7 +35,7 @@ angular.module('starter.services', [])
 
   var register = function(user) {
     return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + '/signup', user).then(function(result) {
+      $http.post(API_ENDPOINT.url + 'admin/signup', user).then(function(result) {
         if (result.data.success) {
           resolve(result.data.msg);
         } else {
