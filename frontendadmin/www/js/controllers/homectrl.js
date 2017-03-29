@@ -2,10 +2,8 @@ angular.module('starter.controllers')
 
 .controller('AppCtrl', function($scope,AuthService, $ionicConfig) {
 			
-	AuthService.getinfo().then(function(result){
-	 
-	 	$scope.user=result;
-		console.log($scope.user);
+	AuthService.getinfo().then(function(result){	 
+	 	$scope.user=result.User;
 	});
 
 })
