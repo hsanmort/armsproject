@@ -1,8 +1,8 @@
 angular.module('starter.services')
 
 .service('StationService', function($q,$http,$timeout,$compile, API_ENDPOINT) {
-
- var getAllStation= function() {
+var AppService ={
+ 	getAllStation:function() {
 		q=$q.defer();
       $http.get(API_ENDPOINT.url + 'station/allst').then(function(result) {
         if (result.data.stations) {
@@ -12,11 +12,41 @@ angular.module('starter.services')
         }
       });
       return q.promise;
+ 	},
+ 	removeStation:function($scope,marker,$transMap){
+ 		q=$q.defer();
+      $http.delete(API_ENDPOINT.url + 'station/removest/'+marker._id)
+        .then(function(result) {
+        	if (result.data.station) {
+        		console.log("ok");
+          		q.resolve(result.data.station);
+        	} else {
+          		q.reject(result.data.msg);
+        	}
+          });
+        return q.promise;
+    },
+  	addStation:function($transMap,marker,$scope,stationName) {
+  	if (marker) {
+		q=$q.defer();
+		var data = {
+            name: stationName,
+            lat: marker.lat,
+            lng:marker.lng
+        };
+        console.log(data.name);
+        
+      $http.post(API_ENDPOINT.url + 'station/addst',data).then(function(result) {
+        if (result.data.msg) {
+          q.resolve(result.data.station);
+        } else {
+          q.reject(result.data.msg);
+        }
+      });
+      return q.promise;
  };
-
- return{
-getAllStation:getAllStation
- };
-
+}
+}
+ return AppService;
 
 });
