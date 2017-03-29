@@ -61,7 +61,7 @@ angular.module('starter.services', [])
   var getinfo = function() {
     
     return $q(function(resolve, reject) {
-      $http.get(API_ENDPOINT.url + '/memberinfoadmin', window.localStorage.getItem(LOCAL_TOKEN_KEY)).then(function(result) {
+      $http.get(API_ENDPOINT.url + 'admin/memberinfoadmin', window.localStorage.getItem(LOCAL_TOKEN_KEY)).then(function(result) {
         if (result.data.admin) {
           resolve(result.data.admin);
         } else {

@@ -9,14 +9,14 @@
              <input type="text" style="padding-left:10px;" placeholder="rechercher une station.." ng-model="search">
             </label>
             <ion-scroll zooming="true" direction="y" style="height: 500px">
-            <div class="list" style="margin-top:10px" ng-repeat="st in station |filter:search">
+            <div class="list" style="margin-top:10px" ng-repeat="st in stations |filter:search">
               <div class="item">
                 <a  class="item-icon-left dark"style="text-decoration: none;">
                  <i  class="icon ion-android-pin" ></i>
                  {{st.name}}
                </a>
-                  <a style="float:right;" class="dark" ng-click="remove({{st.idStation}})"><i class="icon item-icon-right ion-android-cancel"></i></a>
-                  <a style="float:right;" class="dark" ng-click="modifier({{st.idStation}})" ><i class="icon item-icon-right ion-android-settings"></i></a>
+                  <a style="float:right;" class="dark" ng-click="remove({{st}})"><i class="icon item-icon-right ion-android-cancel"></i></a>
+                  <a style="float:right;" class="dark" ng-click="modifier({{st}})" ><i class="icon item-icon-right ion-android-settings"></i></a>
              </div>
             </div>
           </ion-scroll>

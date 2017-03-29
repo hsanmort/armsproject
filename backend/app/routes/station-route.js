@@ -9,6 +9,7 @@ var mongoose    = require('mongoose');
 var apiStation = express.Router();
 
 apiStation.post('/addst', function(req, res) {
+    console.log(req.body.lat);
     if (!req.body.name ) {
         res.json({success: false, msg: 'Please pass name of station.'});
     } else {
@@ -25,7 +26,7 @@ apiStation.post('/addst', function(req, res) {
                 console.log(err);
                 return res.json({success: false, msg: 'Erreur.'});
             }
-            res.json({success: true, msg: 'Successful created new station.'});
+            res.json({success: true, msg: 'Successful created new station.', station: newstation});
         });
     }
 });
@@ -47,7 +48,6 @@ apiStation.get('/allst', function(req, res) {
 apiStation.get('/getst/:id', function(req, res) {
     Station.findById(req.params.id, function(err, station) {
         if (err) throw err;
-
         if (!station) {
             res.send({success: false, msg: 'fail to load stations.'});
         } 
@@ -64,7 +64,7 @@ apiStation.delete('/removest/:id',function (req,res,next) {
             if (err){
              throw err;
             }else {
-                return res.json({success: true,msg: "delete station Successful "+station._id});
+                return res.json({success: true,msg: "delete station Successful ",station:station});
             }
 
         });
@@ -83,7 +83,7 @@ apiStation.put('/updatst/:id',function (req,res,next) {
             if (err){
              throw err;
             }else {
-                return res.json({success: true,msg: "update station Successful "+station});
+                return res.json({success: true,msg: "update station Successful ",station:station});
             }
 
         });
