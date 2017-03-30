@@ -60,4 +60,26 @@ VoyageurSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
+VoyageurSchema.methods.hashPassword= function (next) {
+    var voyageur = this;
+
+    if (this.isModified('this.User.password') || this.isNew) {
+        bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+                return next(err);
+            }
+            bcrypt.hash(voyageur.User.password, salt, function (err, hash) {
+                if (err) {
+                    return next(err);
+                }
+                voyageur.User.password = hash;
+                next();
+            });
+        });
+    } else {
+        return next();
+    }
+};
+
+
 module.exports = mongoose.model('Voyageur', VoyageurSchema);

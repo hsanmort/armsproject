@@ -1,6 +1,7 @@
 <ion-view class="login-view auth-view" cache-view="false">
+<div multi-bg="['img/bg-img.jpg']"></div>
   <ion-content scroll="false">
-    <div class="row">
+      <div class="row">
       <div class="col col-center">
         <div class="card login-container" content-tabs tabsdata='tabsdata'>
           <form name="login_form" class="" novalidate ng-cloak>
@@ -24,14 +25,14 @@
           </form>
         </div>
         <div class="alternative-actions">
-          <a class="log-in button button-small button-clear button-light" ui-sref="auth.walkthrough">
+          <a class="log-in button button-small button-clear button-light" ui-sref="app.station">
             Main menu
           </a>
-          <a class="sign-up button button-small button-clear button-light" ui-sref="auth.signup">
+          <a class="sign-up button button-small button-clear button-light" ui-sref="app.signup">
             Sign Up
           </a>
         </div>
-      </div>
+      </div> 
     </div>
   </ion-content>
 </ion-view>
