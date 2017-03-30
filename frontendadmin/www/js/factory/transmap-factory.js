@@ -39,6 +39,27 @@ angular.module('starter.factories', [])
 	        google.maps.event.addListener(infowindow,'closeclick',function(){
 	        	$transMap.removeBy($scope.currentmarker);
 	        });
+		},
+		updateMarker:function($id,$scope,$transMap,compiled){
+			var current =$transMap.findBy(function(marker){
+	       		return marker.id==$id;
+	     	});
+			$scope.stationUpdat=current[0].name;
+			$scope.found=current;
+			$scope.found[0].setIcon("img/busstopred.png");
+			var infowindow = new google.maps.InfoWindow();
+			infowindow.setContent(compiled[0]);
+			infowindow.open($transMap, $scope.found[0]);
+			$scope.found[0].setDraggable(true);
+
+			google.maps.event.addListener(infowindow,'closeclick',function(){
+			infowindow.close();
+			$scope.found[0].setIcon("img/busstop.png");
+			$scope.found[0].setDraggable(false);
+			$scope.selectedModif=false;
+			var LatLng = new google.maps.LatLng( parseFloat(current[0].lat),parseFloat(current[0].lng));
+			$scope.found[0].setPosition(LatLng);
+			});
 		}
 }
 return AppFactory;
