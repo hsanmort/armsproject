@@ -14,54 +14,78 @@
   <ion-side-menu side="left" class="main-menu" expose-aside-when="large">
     <ion-content>
       <ion-list>
+      <div ng-if="user.User.role=='voyageur_role'">
         <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.profile">
           <div class="user-image-container">
             <pre-img ratio="_1_1" helper-class="rounded-image">
               <img class="user-image" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg" spinner-on-load ui-sref="app.profile">
           	</pre-img>
           </div>
+          
           <h2 class="greeting">Hi {{user.User.name}}</h2>
           <p class="message">Welcome back</p>
+          
+         
         </ion-item>
+      </div>
+        <div ng-if="user.User.role!='voyageur_role'">
+        <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.signup">
+          <div class="user-image-container">
+            <pre-img ratio="_1_1" helper-class="rounded-image">
+              <img class="user-image" ng-src="img/avatar.png" spinner-on-load ui-sref="app.signup">
+            </pre-img>
+          </div>
+          
+          <h2 class="greeting">Hi Visitor</h2>
+          <p class="message">Welcome </p>
+          
+         
+        </ion-item>
+         </div>
          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.station">
           <i class="icon ion-home"></i>
           <h2 class="menu-text">Home</h2>
         </ion-item>
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.bookmarks">
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.favorie">
           <i class="icon ion-star"></i>
           <h2 class="menu-text">Favorie</h2>
         </ion-item>
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.feeds-categories">
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.map">
           <i class="icon ion-android-locate"></i>
           <h2 class="menu-text">My map</h2>
         </ion-item>
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.wordpress">
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.recherche">
           <i class="icon ion-navigate"></i>
           <h2 class="menu-text">Find a way</h2>
         </ion-item>
         
         
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.forms">
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.reclamation">
           <i class="icon ion-information-circled"></i>
           <h2 class="menu-text">Reviews</h2>
         </ion-item>
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.settings">
-          <i class="icon ion-gear-a"></i>
-          <h2 class="menu-text">Settings</h2>
-        </ion-item>
-
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.login">
-          <i class="icon ion-log-in"></i>
-          <h2 class="menu-text">Sign in</h2>
-        </ion-item>
-        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.signup">
-          <i class="icon ion-key"></i>
-          <h2 class="menu-text">Sign up</h2>
-        </ion-item>
-<!--         <ion-item class="item-icon-left" nav-clear menu-close ui-sref="" ng-click="logout()">
+        <div ng-if="user.User.role=='voyageur_role'">
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.profile">
+            <i class="icon ion-gear-a"></i>
+            <h2 class="menu-text">Settings</h2>
+          </ion-item>
+          <ion-item class="item-icon-left" nav-clear menu-close ng-click="logout()">
           <i class="icon ion-log-out"></i>
           <h2 class="menu-text">Logout</h2>
-        </ion-item> -->
+        </ion-item> 
+        </div>
+        <div ng-if="user.User.role!='voyageur_role'">
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.login">
+            <i class="icon ion-log-in"></i>
+            <h2 class="menu-text">Sign in</h2>
+          </ion-item>
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.signup">
+            <i class="icon ion-key"></i>
+            <h2 class="menu-text">Sign up</h2>
+          </ion-item>
+        </div>
+
+        
 
     </ion-list>
     </ion-content>

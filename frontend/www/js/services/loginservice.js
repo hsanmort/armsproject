@@ -90,7 +90,8 @@ angular.module('starter.services', [])
     logout: logout,
     isAuthorized: isAuthorized,
     getinfo: getinfo,
-    isAuthenticated: function() {return isAuthenticated;}
+    isAuthenticated: function() {return isAuthenticated;},
+    isAuthenticated:isAuthenticated
   };
 })
 

@@ -10,7 +10,7 @@ angular.module('starter.factories', [])
 	            lng:parseFloat(marker.Pos.lng),
 	            id:marker._id,
 	            name:marker.name,
-	            icon:'img/bus-stop2.png',
+	            icon:'img/busstop.png',
 	            draggable: false,
 	        	info:infowindow
 	        });
