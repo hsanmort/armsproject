@@ -2,6 +2,7 @@ angular.module('starter.controllers')
 
 .controller('AppCtrl', function($scope,AuthService, $ionicConfig,$state) {
 	console.log("hsan AppCtrl");
+
 			
 	AuthService.getinfo().then(function(result){
 	 console.log("getinfo");
@@ -18,7 +19,13 @@ angular.module('starter.controllers')
 
 })
 
-.controller('ProfileCtrl', function($scope,AuthService) {
+.controller('ProfileCtrl', function($scope,AuthService,ProfileService) {
+AuthService.getinfo().then(function(result){
+	 console.log("getinfo");
+	 	$scope.user=result;
+		console.log(result.User);
+
+	});
 
 })
 
