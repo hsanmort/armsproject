@@ -35,7 +35,7 @@ angular.module('starter.services', [])
 
   var register = function(user) {
     return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + 'admin/signup', user).then(function(result) {
+      $http.post(API_ENDPOINT.url + 'api/signup', user).then(function(result) {
         if (result.data.success) {
           resolve(result.data.msg);
         } else {
@@ -47,7 +47,7 @@ angular.module('starter.services', [])
 
   var login = function(user) {
     return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + 'admin/authenticateadmin', user).then(function(result) {
+      $http.post(API_ENDPOINT.url + 'api/authenticate', user).then(function(result) {
         if (result.data.success) {
           storeUserCredentials(result.data.token);
           resolve(result.data.msg);
@@ -61,9 +61,9 @@ angular.module('starter.services', [])
   var getinfo = function() {
     
     return $q(function(resolve, reject) {
-      $http.get(API_ENDPOINT.url + 'admin/memberinfoadmin', window.localStorage.getItem(LOCAL_TOKEN_KEY)).then(function(result) {
-        if (result.data.success) {
-          resolve(result.data.admin);
+      $http.get(API_ENDPOINT.url + 'api/memberinfo', window.localStorage.getItem(LOCAL_TOKEN_KEY)).then(function(result) {
+        if (result.data.voyageur) {
+          resolve(result.data.voyageur);
         } else {
           reject(result.data.msg);
         }

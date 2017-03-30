@@ -27,8 +27,10 @@
 @import "scss/forms/forms.variables";
 @import "scss/settings/settings.variables";
 
+
 // Include custom styles
 @import "scss/common/common.styles";
+@import "scss/custom/card.styles";
 @import "scss/auth/auth.styles";
 @import "scss/auth/walkthrough.styles";
 @import "scss/auth/login.styles";

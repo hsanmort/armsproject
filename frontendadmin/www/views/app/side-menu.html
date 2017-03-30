@@ -20,16 +20,16 @@
               <img class="user-image" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg" spinner-on-load>
           	</pre-img>
           </div>
-          <h2 class="greeting">Hi Brynn</h2>
+          <h2 class="greeting">{{user.name}}</h2>
           <p class="message">Welcome back</p>
         </ion-item>
-        <div ng-if="role=='adminpay_role'">
-          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.bookmarks">
-            <i class="icon ion-bookmark"></i>
-            <h2 class="menu-text">Saved for later</h2>
+        <div ng-if="user.role=='adminpay_role'">
+          <ion-item class="item-icon-left " nav-clear menu-close ui-sref="app.comptes">
+            <i class="icon ion-wand"></i>
+            <h2 class="menu-text">comptes</h2>
           </ion-item>
           <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.layouts">
-            <i class="icon ion-wand"></i>
+            <i class="icon ion-bookmark"></i>
             <h2 class="menu-text">Layouts</h2>
           </ion-item>
           <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.miscellaneous">
@@ -46,7 +46,7 @@
           </ion-item>
         </div>
 
-        <div ng-if="role=='adminvoy_role'">
+        <div ng-if="user.role=='adminvoy_role'">
           <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.feeds-categories">
             <i class="icon ion-radio-waves"></i>
             <h2 class="menu-text">Feeds</h2>

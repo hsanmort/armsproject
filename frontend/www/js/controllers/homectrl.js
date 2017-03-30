@@ -1,10 +1,20 @@
 angular.module('starter.controllers')
 
-.controller('AppCtrl', function($scope,AuthService, $ionicConfig) {
+.controller('AppCtrl', function($scope,AuthService, $ionicConfig,$state) {
+	console.log("hsan AppCtrl");
 			
-	AuthService.getinfo().then(function(result){	 
-	 	$scope.user=result.User;
+	AuthService.getinfo().then(function(result){
+	 console.log("getinfo");
+	 	$scope.user=result;
+		console.log($scope.user.User.name);
 	});
+
+	 $scope.logout = function() {
+    AuthService.logout();
+
+    $state.go('app.station');
+  };
+
 
 })
 

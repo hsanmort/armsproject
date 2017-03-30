@@ -12,17 +12,15 @@ require('../../config/passport')(passport);
 var apiVoyageur = express.Router();
 
 apiVoyageur.post('/signup', function(req, res) {
-    if (!req.body.name || !req.body.password || !req.body.email|| !req.body.login) {
+    if (!req.body.name || !req.body.password || !req.body.email|| !req.body.login || !req.body.cin) {
         res.json({success: false, msg: 'Please pass name and password.'});
     } else {
         var newVoyageur = new Voyageur({
-             'User.name': req.body.name,
-             'User.password': req.body.password,
-             'User.email': req.body.email,
-            'User.login': req.body.login
-            
-           
-            
+            'cin': req.body.cin,
+            'User.name': req.body.name,
+            'User.password': req.body.password,
+            'User.email': req.body.email,
+            'User.login': req.body.login            
         });
         console.log(newVoyageur);
         // save the user
@@ -77,7 +75,7 @@ apiVoyageur.get('/memberinfo', passport.authenticate('jwt',{session: false}),fun
             if (!voyageur){
                 return res.status(403).send({success: false, msg:"Authentifaiction failed" });
             }else {
-                return res.json({success: true,msg: "Welcome to the member area "+voyageur.User.name});
+                return res.json({success: true,msg: "Welcome to the member area ",voyageur: voyageur});
             }
 
         });
@@ -86,6 +84,74 @@ apiVoyageur.get('/memberinfo', passport.authenticate('jwt',{session: false}),fun
         return res.status({success: false, msg: 'No token provided.'});
 
     }
+});
+
+//get voyageur by CIN
+apiVoyageur.post('/getvoyageurbycin', function(req, res) {
+    if (!req.body.cin ) { 
+        res.json({success: false, msg: 'Please pass cin of voyageur.'});
+    } else {
+        Voyageur.findOne(
+            {'cin':req.body.cin},
+            function(err, voyageur) {
+            if (err) throw err;
+            if (!voyageur) {
+                res.send({success: false, msg: 'fail to load Voyageur.'});
+            } 
+            else {
+                res.json({success: true, voyageur: voyageur});  
+            }
+
+        });
+    }
+});
+//get all voyageurs
+apiVoyageur.get('/allvoyageur', function(req, res) {
+    Voyageur.find({
+    }, function(err, voyageur) {
+        if (err) throw err;
+
+        if (!voyageur) {
+            res.send({success: false, msg: 'fail to load all voyageurs.'});
+        } 
+        else {
+            res.json({success: true, voyageur: voyageur});  
+        }
+
+    });
+});
+
+apiVoyageur.put('/updatprofile/:id',function (req,res,next) {
+
+
+
+     var newVoyageur = {
+            'cin': req.body.cin,
+            'User.email': req.body.email,
+            'User.name': req.body.name,
+            'User.image': req.body.image,
+            'User.login': req.body.login,
+            'User.password': req.body.password
+        };
+       newVoyageur.hashPassword(function(err) {
+            console.log("here modification password");
+            if (err) {
+                console.log(err);
+                return res.json({success: false, msg: 'Erreur.'});
+            }
+            res.json({success: true, msg: 'Successful changed password new user.'});
+        });
+
+        console.log(newVoyageur);
+        Voyageur.findByIdAndUpdate( req.params.id,newVoyageur,function (err,voyageur) {
+            if (err){
+             throw err;
+            }else {
+                return res.json({success: true,msg: "update voyageur Successful "+voyageur});
+            }
+
+        });
+
 });
 getToken =function (headers) {
     if (headers && headers.authorization){

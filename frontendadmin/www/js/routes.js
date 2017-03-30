@@ -54,6 +54,19 @@ angular.module('starter.routes', ['starter.config'])
       authorizedRoles: [USER_ROLES.adminpaiement]
     }
   })
+  // comptes de paiement
+  .state('app.comptes', {
+    url: "comptes_paiement/comptes",
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/comptes_paiement/comptes.html",
+        controller: 'comptepayCtrl'
+      }
+    },
+    data: {
+      authorizedRoles: [USER_ROLES.adminpaiement]
+    }
+  })
   //Station
 
   .state('app.station', {
