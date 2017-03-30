@@ -59,8 +59,8 @@ angular.module('starter.routes', ['starter.config'])
     url: "comptes_paiement/comptes",
     views: {
       'menuContent': {
-        templateUrl: "views/app/comptes_paiement/comptes",
-        controller: 'compteCtrl'
+        templateUrl: "views/app/comptes_paiement/comptes.html",
+        controller: 'comptepayCtrl'
       }
     },
     data: {
