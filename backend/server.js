@@ -25,6 +25,7 @@ app.use(passport.initialize());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
+
     res.header("Access-Control-Allow-Methods", "POST, GET,DELETE,PUT");
 
     res.header("Access-Control-Max-Age", "3600");
@@ -44,6 +45,10 @@ require('./config/passport')(passport);
 var apiVoyageur = require('./app/routes/voyageur-route');
 // connect the api routes under /api/*
 app.use('/api', apiVoyageur);
+
+var apiComptePaiement = require('./app/routes/comptePaiement-route');
+// connect the api routes under /api/*
+app.use('/paiement', apiComptePaiement);
 
 var apiAdmin = require('./app/routes/admin-route');
 // connect the api routes under /api/*
