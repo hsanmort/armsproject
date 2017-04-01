@@ -3,6 +3,7 @@ angular.module('starter.controllers')
 
 
 .controller('StationCtrl',function($scope, $ionicPopup,StationService,TransmapFact, $state,$cordovaGeolocation,$compile) {
+	
 	var options = {timeout: 10000, enableHighAccuracy: true};
 	var ajout =0;
 	$cordovaGeolocation.getCurrentPosition(options).then(function(position){
@@ -30,7 +31,7 @@ angular.module('starter.controllers')
 	                              "</div>"+
 	                              "<div style='border-style:none;'class='item item-input'>"+
 	                              "<label class='item-input-wrapper'>"+
-	                                 "<input type='file' ng-model='stationimgSave'>"+
+	                                 " <input type=file files-input base-sixty-four-input ng-model='files' /><br>"+
 	                                 "</label>"+
 	                                 "</div>"+
 	                                  "<button ng-click='savestat()'class='button button-small'>enregistrer</button"+
@@ -56,8 +57,9 @@ angular.module('starter.controllers')
 	      }
    		};
    		$scope.savestat=function() {
+   			console.log($scope.files.base64);
 		    if (($scope.stationSave!=null ) && ($scope.stationSave!="")) {
-		       StationService.addStation($stationMap,$scope.currentmarker,$scope,$scope.stationSave,$scope.stationimgSave).then(function(result){
+		       StationService.addStation($stationMap,$scope.currentmarker,$scope,$scope.stationSave,$scope.files.base64).then(function(result){
 		       	$stationMap.removeBy($scope.currentmarker);
 		       	$stationMap.markers.remove($scope.currentmarker);
 		       	delete $scope.currentmarker;
@@ -74,6 +76,7 @@ angular.module('starter.controllers')
 		       
 		    }
 	    }
+
 	    $scope.remove = function(station) {
 		    var confirmPopup = $ionicPopup.confirm({
 		       title: 'Confirmer suppression',

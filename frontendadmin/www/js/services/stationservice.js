@@ -48,9 +48,9 @@ var AppService ={
   addStation:function($transMap,marker,$scope,stationName,stationImage) {
   	if (marker) {
 		q=$q.defer();
-    console.log(stationImage);
 		var data = {
             name: stationName,
+            image:stationImage,
             lat: marker.lat,
             lng:marker.lng
         };

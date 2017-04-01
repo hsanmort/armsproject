@@ -19,7 +19,7 @@ apiAdmin.post('/signup', function(req, res) {
             'User.name': req.body.name,
             'User.password': req.body.password
         });
-        console.log(newAdmin);
+
         // save the user
         newAdmin.save(function(err) {
             console.log("here");
@@ -65,7 +65,6 @@ apiAdmin.post('/authenticateadmin', function(req, res) {
 });
 apiAdmin.get('/memberinfoadmin', passport.authenticate('jwt',{session: false}),function (req,res) {
     var token = getToken(req.headers);
-    console.log(req);
     if (token){
         var decoded = jwt.decode(token,config.secret);
         Admin.findOne({

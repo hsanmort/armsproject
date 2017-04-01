@@ -9,21 +9,20 @@ var mongoose    = require('mongoose');
 var apiStation = express.Router();
 
 apiStation.post('/addst', function(req, res) {
-    console.log(req.body.lat);
+    
     if (!req.body.name ) {
         res.json({success: false, msg: 'Please pass name of station.'});
     } else {
         var newstation = new Station({
             'name': req.body.name,
+            'image': req.body.image,
             'Pos.lat': req.body.lat,
             'Pos.lng': req.body.lng
         });
-        console.log(newstation);
+       
         // save the user
         newstation.save(function(err) {
-            console.log("here");
             if (err) {
-                console.log(err);
                 return res.json({success: false, msg: 'Erreur.'});
             }
             res.json({success: true, msg: 'Successful created new station.', station: newstation});
@@ -78,7 +77,7 @@ apiStation.put('/updatst/:id',function (req,res,next) {
             'Pos.lat': req.body.lat,
             'Pos.lng': req.body.lng
         };
-        console.log(req.params.id);
+
         Station.findByIdAndUpdate( req.params.id,newstation,function (err,station) {
             if (err){
              throw err;
@@ -90,6 +89,5 @@ apiStation.put('/updatst/:id',function (req,res,next) {
         });
 
 });
-
 
 module.exports = apiStation;

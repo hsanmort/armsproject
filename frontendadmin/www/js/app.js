@@ -10,6 +10,7 @@ angular.module('underscore', [])
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', [
   'ionic',
+  'naif.base64',
   'angularMoment',
   'starter.controllers',
   'starter.factories',

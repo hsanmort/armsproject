@@ -4,7 +4,7 @@ angular.module('starter.factories', [])
 		drawMarker:function(marker,$transMap){
 			var infowindow = new google.maps.InfoWindow({
 	          	content:" <div ng-non-bindable=''><div style='height:100%;float:left;margin-right:10px;'>"+
-	          				"<img style='border-radius: 24px;width:64px;height:64px;' src='img/bg-jimg.jpg'></img>"+
+	          				"<img style='border-radius: 24px;width:64px;height:64px;' src=data:image/png;base64,"+marker.image+"></img>"+
             				"</div><div style='width:256px;'>"+
             				"<strong>"+marker.name+"</strong><br>"+
             				"<p>"+marker.description+" </p>"+

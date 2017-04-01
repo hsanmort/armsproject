@@ -18,7 +18,7 @@
     "tag": "v1.2.0",
     "commit": "b34734a8e6f239ee8cfdc2a5e41313b47659c9ae"
   },
-  "_source": "git://github.com/williamboman/angular-slugify.git",
+  "_source": "https://github.com/williamboman/angular-slugify.git",
   "_target": "*",
   "_originalSource": "williamboman/angular-slugify"
 }
