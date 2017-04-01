@@ -25,7 +25,9 @@ app.use(passport.initialize());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-    res.header("Access-Control-Allow-Methods", "POST, GET,DELETE");
+
+    res.header("Access-Control-Allow-Methods", "POST, GET,DELETE,PUT");
+
     res.header("Access-Control-Max-Age", "3600");
     next();
 });
@@ -60,6 +62,12 @@ var apiBus = require('./app/routes/bus-route');
 // connect the api routes under /api/*
 app.use('/bus', apiBus);
 
+/*
+var uploadPhoto=require('./app/routes/upload-file').uploadFile;
+app.all('/photo_upload', function ( req, res ) {
+    uploadFile(req, res);
+});
+*/
 // Start the server
 app.listen(port);
 console.log('There will be dragons: http://localhost:' + port);

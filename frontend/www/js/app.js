@@ -12,6 +12,7 @@ angular.module('starter', [
   'ionic',
   'angularMoment',
   'starter.controllers',
+  'starter.factories',
   'starter.routes',
   'starter.directives',
   'starter.map',

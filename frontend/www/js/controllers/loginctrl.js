@@ -3,6 +3,7 @@ angular.module('starter.controllers', [])
 
 
 .controller('LoginCtrl', function($scope, AuthService, $ionicPopup, $state) {
+  console.log("LoginCtrl hsan");
  $scope.user = {
     name: '',
     password: ''
@@ -22,6 +23,7 @@ angular.module('starter.controllers', [])
 
 
 .controller('SignupCtrl', function($scope,AuthService, $ionicPopup, $state) {
+    console.log("SignupCtrl hsan");
 	  $scope.user = {
     email: '',
     login: '',
@@ -43,4 +45,6 @@ angular.module('starter.controllers', [])
       });
     });
   };
-});
+})
+
+;

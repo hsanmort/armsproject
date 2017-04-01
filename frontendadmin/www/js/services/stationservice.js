@@ -25,8 +25,27 @@ var AppService ={
         	}
           });
         return q.promise;
-    },
-  	addStation:function($transMap,marker,$scope,stationName) {
+  },
+  stationUpdate:function($scope,marker,$transMap,stationName){
+    q=$q.defer();
+    var data = {
+            name: stationName,
+            lat: marker.lat,
+            lng:marker.lng
+        };
+   $transMap.removeBy(marker);
+    $http.put(API_ENDPOINT.url + 'station/updatst/'+marker.id,data)
+      .then(function(result) {
+        if (result.data.station) {
+       
+            q.resolve(result.data.station);
+        } else {
+            q.reject(result.data.msg);
+        }
+      });
+    return q.promise;
+  },
+  addStation:function($transMap,marker,$scope,stationName) {
   	if (marker) {
 		q=$q.defer();
 		var data = {
@@ -44,8 +63,8 @@ var AppService ={
         }
       });
       return q.promise;
- };
-}
+    };
+  }
 }
  return AppService;
 

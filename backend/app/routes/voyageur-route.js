@@ -12,15 +12,17 @@ require('../../config/passport')(passport);
 var apiVoyageur = express.Router();
 
 apiVoyageur.post('/signup', function(req, res) {
-    if (!req.body.name || !req.body.password || !req.body.email|| !req.body.login || !req.body.cin) {
+    if (!req.body.name || !req.body.password || !req.body.email|| !req.body.login ) {
         res.json({success: false, msg: 'Please pass name and password.'});
     } else {
+        var role="voyageur_role";
         var newVoyageur = new Voyageur({
             'cin': req.body.cin,
             'User.name': req.body.name,
             'User.password': req.body.password,
             'User.email': req.body.email,
-            'User.login': req.body.login            
+            'User.login': req.body.login,
+            'User.role': role           
         });
         console.log(newVoyageur);
         // save the user

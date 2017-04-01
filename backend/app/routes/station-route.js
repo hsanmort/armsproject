@@ -83,6 +83,7 @@ apiStation.put('/updatst/:id',function (req,res,next) {
             if (err){
              throw err;
             }else {
+                station.name=req.body.name;
                 return res.json({success: true,msg: "update station Successful ",station:station});
             }
 

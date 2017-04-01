@@ -58,6 +58,10 @@ angular.module('starter.controllers')
 		       	delete $scope.currentmarker;
 		       	delete $scope.stationSave;
 		       	TransmapFact.drawMarker(result,$stationMap);
+		       	var found =$stationMap.findBy(function(marker){
+		                	return marker.id==result._id;
+		              	});
+		       	TransmapFact.addInfoWindowListner(found[0],$stationMap);
 		       	StationService.getAllStation().then(function(result){
 					$scope.stations=result;
 				});
@@ -78,7 +82,6 @@ angular.module('starter.controllers')
 		        		var found =$stationMap.findBy(function(marker){
 		                	return marker.id==result._id;
 		              	});
-		              	console.log(found);
 			            $stationMap.removeBy(found[0]);
 			            $stationMap.markers.remove(found[0]);
 			            
@@ -89,6 +92,53 @@ angular.module('starter.controllers')
 		       	}
 		    });
 		};
+		$scope.selectedModif=false;
+		$scope.modifier= function(st) {
+	    	if($scope.selectedModif==false){
+	        	$scope.selectedModif=true;
+	        	$stationMap.zoom(15);
+	        	var content="<div  class='list' style='height:50px;width:300px;overflow:hidden;'>"+
+			                     "<div style='border-style:none;'class='item item-input'>"+
+			                       "<label class='item-input-wrapper'>"+
+			                         "<input type='text' ng-model='stationUpdat' placeholder='nom de station'>"+
+			                       "</label>"+
+			                       "<button ng-click='updatstat()'class='button button-small'>enregistrer</button"+
+			                     "</div>"+
+			                   "</div>";
+				var compiled = $compile(content)($scope);
+	   			TransmapFact.updateMarker(st._id,$scope,$stationMap,compiled);
+	  		}else{
+			    var alertPopup = $ionicPopup.alert({
+			      title: 'attention',
+			      template: 'veuillez terminer la modification en cour'
+			    });
+			    alertPopup.then(function(res) {
+			      google.maps.event.addListener($stationMap.gMap,"click",function(e){
+			        StationService.addStation(e.latLng.lat(),e.latLng.lng(),$stationMap,compiled,$scope);
+			        google.maps.event.clearListeners($stationMap.gMap, 'click');
+			      });
+			    });
+	  		}
+   		}
+   		$scope.updatstat= function(){
+			if (($scope.stationUpdat!=null ) && ($scope.stationUpdat!="") ) {
+				$stationMap.removeBy($scope.found[0]);
+				$stationMap.markers.remove($scope.found[0]);
+				StationService.stationUpdate($scope,$scope.found[0],$stationMap,$scope.stationUpdat).then(function(result){
+					TransmapFact.drawMarker(result,$stationMap);
+			       	StationService.getAllStation().then(function(result){
+						$scope.stations=result;
+					});
+					var found =$stationMap.findBy(function(marker){
+		                	return marker.id==result._id;
+		              	});
+			       	TransmapFact.addInfoWindowListner(found[0],$stationMap);
+				});
+				$scope.selectedModif=false;
+				delete $scope.found;
+				delete $scope.stationUpdat;
+			}
+   		}
 	});
 	
 });
