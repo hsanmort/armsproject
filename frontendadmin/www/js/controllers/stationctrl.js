@@ -22,13 +22,18 @@ angular.module('starter.controllers')
 		});	
 
 		$scope.addStation = function() {
-	      var content="<div  class='list' style='height:50px;width:300px;overflow:hidden;'>"+
+	      var content="<div  class='list' style='width:300px;overflow:hidden;'>"+
 	                              "<div style='border-style:none;'class='item item-input'>"+
 	                                "<label class='item-input-wrapper'>"+
 	                                  "<input type='text' ng-model='stationSave' placeholder='nom de station'>"+
 	                                "</label>"+
-	                                "<button ng-click='savestat()'class='button button-small'>enregistrer</button"+
 	                              "</div>"+
+	                              "<div style='border-style:none;'class='item item-input'>"+
+	                              "<label class='item-input-wrapper'>"+
+	                                 "<input type='file' ng-model='stationimgSave'>"+
+	                                 "</label>"+
+	                                 "</div>"+
+	                                  "<button ng-click='savestat()'class='button button-small'>enregistrer</button"+
 	                            "</div>";
 	      var compiled = $compile(content)($scope);
 	      if (ajout==0) {
@@ -52,7 +57,7 @@ angular.module('starter.controllers')
    		};
    		$scope.savestat=function() {
 		    if (($scope.stationSave!=null ) && ($scope.stationSave!="")) {
-		       StationService.addStation($stationMap,$scope.currentmarker,$scope,$scope.stationSave).then(function(result){
+		       StationService.addStation($stationMap,$scope.currentmarker,$scope,$scope.stationSave,$scope.stationimgSave).then(function(result){
 		       	$stationMap.removeBy($scope.currentmarker);
 		       	$stationMap.markers.remove($scope.currentmarker);
 		       	delete $scope.currentmarker;

@@ -44,8 +44,10 @@ angular.module('starter.routes', ['starter.config'])
 
   .state('app.maps', {
     url: "/miscellaneous/maps",
+    cache:false,
     views: {
       'menuContent': {
+        cache:false,
         templateUrl: "views/app/miscellaneous/maps.html",
         controller: 'MapsCtrl'
       }
@@ -71,8 +73,10 @@ angular.module('starter.routes', ['starter.config'])
 
   .state('app.station', {
     url: "/station",
+    cache:false,
     views: {
       'menuContent': {
+        cache:false,
         templateUrl: "views/app/station/station.html",
         controller: 'StationCtrl'
         }

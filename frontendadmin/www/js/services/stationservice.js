@@ -45,9 +45,10 @@ var AppService ={
       });
     return q.promise;
   },
-  addStation:function($transMap,marker,$scope,stationName) {
+  addStation:function($transMap,marker,$scope,stationName,stationImage) {
   	if (marker) {
 		q=$q.defer();
+    console.log(stationImage);
 		var data = {
             name: stationName,
             lat: marker.lat,
