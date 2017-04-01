@@ -79,7 +79,6 @@ apiComptePaiement.get('/allaccounts', function(req, res) {
 });
 
 apiComptePaiement.delete('/removecptpaiement/:id',function (req,res,next) {
-		console.log(req.params.id);
 	    	ComptePaiement.findByIdAndRemove(req.params.id, function (err,comptePaiement) {
 	            if (err){
 	             throw err;
