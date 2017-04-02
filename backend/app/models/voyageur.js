@@ -15,9 +15,15 @@ var VoyageurSchema =new Schema({
 
         , name: { type: String, required: true  }
 
+        , lastname:{ type: String, required: true  }
+
+        , adress:{ type: String, required: true  }
+
+        , phone:{ type: Number }
+
         , image: {type: String}
 
-        , login: { type: String, lowercase: true, trim: true }
+        , login: { type: String, lowercase: true, unique:true, trim: true }
 
         , password: { type: String, required: true}
         

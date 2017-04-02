@@ -3,7 +3,7 @@ var mapOption;
 function optionInt(latLng) {
 mapOption={
   center:latLng ,
-  zoom: 10,
+  zoom: 15,
   disableDefaultUI:false,
   scrollwheel: true,
   draggable: true,
