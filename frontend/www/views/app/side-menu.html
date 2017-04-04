@@ -14,7 +14,7 @@
   <ion-side-menu side="left" class="main-menu" expose-aside-when="large">
     <ion-content>
       <ion-list>
-      <div ng-if="user.User.role=='voyageur_role'">
+      <div ng-show="user.User.name">
         <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.profile">
           <div class="user-image-container">
             <pre-img ratio="_1_1" helper-class="rounded-image">
@@ -28,7 +28,7 @@
          
         </ion-item>
       </div>
-        <div ng-if="user.User.role!='voyageur_role'">
+        <div ng-show="isAuth!=true">
         <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.signup">
           <div class="user-image-container">
             <pre-img ratio="_1_1" helper-class="rounded-image">
@@ -64,17 +64,17 @@
           <i class="icon ion-information-circled"></i>
           <h2 class="menu-text">Reviews</h2>
         </ion-item>
-        <div ng-if="user.User.role=='voyageur_role'">
+        <div ng-show="isAuth==true">
           <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.profile">
             <i class="icon ion-gear-a"></i>
             <h2 class="menu-text">Settings</h2>
           </ion-item>
-          <ion-item class="item-icon-left" nav-clear menu-close ng-click="logout()">
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref='' ng-click="logout()">
           <i class="icon ion-log-out"></i>
           <h2 class="menu-text">Logout</h2>
         </ion-item> 
         </div>
-        <div ng-if="user.User.role!='voyageur_role'">
+        <div ng-show="isAuth==false">
           <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.login">
             <i class="icon ion-log-in"></i>
             <h2 class="menu-text">Sign in</h2>

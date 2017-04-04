@@ -8,6 +8,7 @@ angular.module('starter.routes', ['starter.config'])
   .state('app', {
     url: "/app",
     abstract: true,
+    cache: false,
     templateUrl: "views/app/side-menu.html",
     controller: 'AppCtrl'
   })
@@ -15,6 +16,8 @@ angular.module('starter.routes', ['starter.config'])
   
   .state('app.login', {
     url: "/login",
+    cache: false,
+
     views: {
       'menuContent': {
         templateUrl: "views/app/auth/login.html",
@@ -24,6 +27,7 @@ angular.module('starter.routes', ['starter.config'])
   })
   .state('app.signup', {
     url: "/signup",
+
     views: {
       'menuContent': {
         templateUrl: "views/app/auth/signup.html",
@@ -44,6 +48,7 @@ angular.module('starter.routes', ['starter.config'])
 
   .state('app.profile', {
     url: "/profile",
+
     views: {
       'menuContent': {
         templateUrl: "views/app/profile.html",
@@ -55,6 +60,7 @@ angular.module('starter.routes', ['starter.config'])
 
   .state('app.station', {
     url: "/station",
+
     views: {
       'menuContent': {
         templateUrl: "views/app/station/station.html",
