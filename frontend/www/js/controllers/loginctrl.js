@@ -2,7 +2,7 @@ angular.module('starter.controllers', [])
 
 
 
-.controller('LoginCtrl', function($scope, AuthService, $ionicPopup, $state) {
+.controller('LoginCtrl', function($scope, AuthService, $ionicPopup, $state,$window) {
   console.log("LoginCtrl hsan");
  $scope.user = {
     name: '',
@@ -11,7 +11,11 @@ angular.module('starter.controllers', [])
 
   $scope.login = function() {
     AuthService.login($scope.user).then(function(msg) {
-      $state.go('app.station');
+
+               window.location.reload();
+               $state.go('app.station');
+               
+      
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
         title: 'Login failed!',
@@ -26,8 +30,11 @@ angular.module('starter.controllers', [])
     console.log("SignupCtrl hsan");
 	  $scope.user = {
     email: '',
-    login: '',
     name: '',
+    lastname: '',
+    adress: '',
+    phone: '',
+    login: '',
     password: ''
   };
  

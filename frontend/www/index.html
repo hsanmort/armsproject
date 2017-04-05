@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta http-equiv="Content-Security-Policy" content=" img-src * data:;default-src *; script-src &apos;self&apos; &apos;unsafe-inline&apos; &apos;unsafe-eval&apos; *; style-src  &apos;self&apos; &apos;unsafe-inline&apos; *">
     <title></title>
@@ -18,6 +19,7 @@
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="lib/moment/min/moment.min.js"></script>
     <script src="lib/angular-moment/angular-moment.min.js"></script>
+    <script src="lib/angular-base64-upload/src/angular-base64-upload.js"></script>
     <script src="lib/angular-slugify/dist/angular-slugify.min.js"></script>
     <script src="lib/collide/collide.js"></script>
     <script src="lib/ionic-contrib-tinder-cards/ionic.tdcards.js"></script>
@@ -30,7 +32,10 @@
     <script src="js/controllers/loginctrl.js"></script>
     <script src="js/controllers/homectrl.js"></script>
     <script src="js/controllers/stationctrl.js"></script>
+    <script src="js/controllers/reclamationctrl.js"></script>
+    <script src="js/controllers/recherchectrl.js"></script>
         <script src="js/factory/transmap-factory.js"></script>
+
 
     <script src="js/map/list.js"></script>
     <script src="js/map/mapOption.js"></script>
@@ -42,9 +47,13 @@
     <script src="js/services/loginservice.js"></script>
     <script src="js/services/stationservice.js"></script>
     <script src="js/services/profileservice.js"></script>
+    <script src="js/services/reclamationservice.js"></script>
     <script src="js/config.js"></script>
   </head>
   <body ng-app="starter">
-    <ion-nav-view></ion-nav-view>
+    <ion-nav-view>
+      
+    </ion-nav-view>
+
   </body>
 </html>

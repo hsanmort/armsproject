@@ -1,5 +1,5 @@
 var jwt         = require('jwt-simple');
-var ComptePaiement    = require('../../app/models/paiement/comptePaiement-model');// get the mongoose model
+var ComptePaiement    = require('../../app/models/voyageur');// get the mongoose model
 //var voyageur	= require('../../app/models/voyageur'); 
 var passport	= require('passport');
 var express     = require('express');
@@ -16,7 +16,7 @@ apiComptePaiement.post('/addcptpaiement', function(req, res) {
         res.json({success: false, msg: 'Veuillez remplir les champs.'});
     } else {
     	ComptePaiement.findOne(
-            {'cin':req.body.cin},
+            {'cin':req.body.cin, 'ComptePaiement.ishere': false},
             function(err, comptePaiement) {
 	            if (err) throw err;
 	            if (!comptePaiement) {
@@ -64,7 +64,7 @@ apiComptePaiement.post('/findcptpaiement', function(req, res) {
 });
 
 apiComptePaiement.get('/allaccounts', function(req, res) {
-    ComptePaiement.find({
+    ComptePaiement.find({'ComptePaiement.ishere': true
     }, function(err, comptePaiement) {
         if (err) throw err;
 

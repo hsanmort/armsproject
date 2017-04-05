@@ -4,6 +4,7 @@
 var jwt         = require('jwt-simple');
 var Voyageur    = require('../../app/models/voyageur'); // get the mongoose model
 var passport	= require('passport');
+var bodyParser = require('body-parser').json();
 var express     = require('express');
 var config      = require('../../config/database'); // get db config file
 
@@ -11,14 +12,17 @@ var config      = require('../../config/database'); // get db config file
 require('../../config/passport')(passport);
 var apiVoyageur = express.Router();
 
+
 apiVoyageur.post('/signup', function(req, res) {
-    if (!req.body.name || !req.body.password || !req.body.email|| !req.body.login ) {
+    if (!req.body.name ||!req.body.lastname || !req.body.password || !req.body.email|| !req.body.login ) {
         res.json({success: false, msg: 'Please pass name and password.'});
-    } else {
+    } else{
         var role="voyageur_role";
         var newVoyageur = new Voyageur({
-            'cin': req.body.cin,
             'User.name': req.body.name,
+            'User.lastname': req.body.lastname,
+            'User.adress': req.body.adress,
+            'User.phone': req.body.phone,
             'User.password': req.body.password,
             'User.email': req.body.email,
             'User.login': req.body.login,
@@ -48,15 +52,14 @@ apiVoyageur.post('/authenticate', function(req, res) {
         } //a fuckin problem here check it later!!!!!!!
         else {
             // check if password matches
-            console.log("--------------------");
-            console.log(voyageur.User.password);
-            console.log(req.body.password);
+         
             voyageur.User.comparePassword(req.body.password, function (err, isMatch) {
                // console.log(isMatch);
                 if (isMatch && !err) {
                     // if user is found and password is right create a token
                     var token = jwt.encode(voyageur, config.secret);
-                    // return the information including token as JSON
+
+                
                     res.json({success: true, token: 'JWT ' + token});
                 } else {
                     res.send({success: false, msg: 'Authentication failed. Wrong password.'});
@@ -108,7 +111,7 @@ apiVoyageur.post('/getvoyageurbycin', function(req, res) {
     }
 });
 //get all voyageurs
-apiVoyageur.get('/allvoyageur', function(req, res) {
+apiVoyageur.get('/allvoyageur',function(req, res) {
     Voyageur.find({
     }, function(err, voyageur) {
         if (err) throw err;
@@ -123,33 +126,26 @@ apiVoyageur.get('/allvoyageur', function(req, res) {
     });
 });
 
-apiVoyageur.put('/updatprofile/:id',function (req,res,next) {
-
-
-
-     var newVoyageur = {
-            'cin': req.body.cin,
-            'User.email': req.body.email,
+apiVoyageur.put('/updatprofile/:id',bodyParser,function (req,res) {
+     
+        var newVoyageur= new Voyageur({
             'User.name': req.body.name,
-            'User.image': req.body.image,
+            'User.lastname': req.body.lastname,
+            'User.adress': req.body.adress,
+            'User.phone': req.body.phone,
+            'User.password': req.body.password,
+            'User.email': req.body.email,
             'User.login': req.body.login,
-            'User.password': req.body.password
-        };
-       newVoyageur.hashPassword(function(err) {
-            console.log("here modification password");
-            if (err) {
-                console.log(err);
-                return res.json({success: false, msg: 'Erreur.'});
-            }
-            res.json({success: true, msg: 'Successful changed password new user.'});
+            'User.role': role           
         });
+        console.log(req.body.password);
+        delete newVoyageur._id;
 
-        console.log(newVoyageur);
-        Voyageur.findByIdAndUpdate( req.params.id,newVoyageur,function (err,voyageur) {
+        Voyageur.update({_id: req.params.id},newVoyageur,function (err,voyageur) {
             if (err){
              throw err;
             }else {
-                return res.json({success: true,msg: "update voyageur Successful "+voyageur});
+                return res.json({success: true,msg: "update voyageur Successful ", newVoyageur : newVoyageur});
             }
 
         });

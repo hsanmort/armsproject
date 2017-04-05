@@ -2,14 +2,22 @@ angular.module('starter.services')
 
 .service('ProfileService', function($q,$http,$timeout,$compile, API_ENDPOINT) {
 
+ console.log("ProfileService");
 
- var profile = function(user) {
+ var profile = function(voyageur) {
+/*  console.log("in ser");
+  console.log(user);
+  console.log("in ser");*/
+
+
     return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + 'api/updatprofile/', user._id).then(function(result) {
-        if (result.data.success) {
-          resolve(result.data.voyageur);
+      $http.put(API_ENDPOINT.url + 'api/updatprofile/'+ voyageur._id,voyageur).then(function(result) {
+        if (result.data.newVoyageur) {
+          resolve(result.data.newVoyageur);
+           console.log("in ser");
+          console.log(result.data.newVoyageur);
         } else {
-          reject(result.data.voyageur);
+          reject(result.data.msg);
         }
       });
     });

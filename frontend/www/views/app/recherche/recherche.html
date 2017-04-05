@@ -1,0 +1,26 @@
+<ion-view view-title=" Find you Way">
+    <ion-content>
+      <div class="row" >
+        <div id="map" data-tap-disabled="true" class="col col-100" style="height:50vh;" ></div>
+      
+        </div> 
+		<div class="row" >
+		 <div class="item item-input-inset">
+		        <label class="item-input-wrapper">
+		          <input type="text" placeholder="Start..." ng-model="origin">
+		        </label>
+		        <label class="item-input-wrapper">
+		          <input type="text" placeholder="End..." ng-model="destination" >
+		        </label>
+		        <button class="button button-small" ng-click="calculate()">
+		          Submit
+		        </button>
+		</div>
+		       
+		      
+        </div> 
+      
+        
+       
+    </ion-content>
+</ion-view>

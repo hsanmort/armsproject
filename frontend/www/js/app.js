@@ -11,6 +11,7 @@ angular.module('underscore', [])
 angular.module('starter', [
   'ionic',
   'angularMoment',
+  'naif.base64',
   'starter.controllers',
   'starter.factories',
   'starter.routes',
