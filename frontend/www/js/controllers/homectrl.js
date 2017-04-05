@@ -1,40 +1,76 @@
 angular.module('starter.controllers')
 
 .controller('AppCtrl', function($scope,AuthService, $ionicConfig, $state) {
-	console.log("hsan AppCtrl");
+	console.log("AppCtrl");
 	
 	$scope.isAuth=false;
 	$scope.isAuth=AuthService.isAuthenticated;
+		
 		if($scope.isAuth==true)	{
-	AuthService.getinfo().then(function(result){
-	 console.log("appel getinfoaaaaaaaaaaaaaaaaaa");
-	 	$scope.user=result;
-		console.log($scope.user.User.name);
-		console.log($scope.isAuth);
-	});
-	 $scope.logout = function() {
-	    AuthService.logout();
-	    
-	    	console.log($scope.user);
-	    	/*$state.go('app.station', null, {reload: true});*/
-/*	    	 $state.go('app.station');*/
-			 window.location.reload()
- 			$state.go('app.station');
+			AuthService.getinfo().then(function(result){
+	 		$scope.user=result;
+			});
 
-
-	  };
-	 }else{console.log(AuthService.isAuthenticated);}
-
-
-
+			$scope.logout = function() {
+			    AuthService.logout();
+				window.location.reload();
+		 		$state.go('app.station');
+		 	};
+	 	}else{
+	 		console.log(AuthService.isAuthenticated);
+	 	}
 })
 
-.controller('ProfileCtrl', function($scope,AuthService,ProfileService) {
-AuthService.getinfo().then(function(result){
-	 	console.log("getinfo in profile");
-	 	$scope.user=result;
+.controller('ProfileCtrl', function($http,$scope,$ionicPopup,AuthService,ProfileService, $state,$window) {
+	 console.log("ProfileCtrl");
+	 $scope.isAuth=false;
+	$scope.isAuth=AuthService.isAuthenticated;
+		
+		if($scope.isAuth==true)	{
+		
+			AuthService.getinfo().then(function(result){
+		 		$scope.voyageur=result;
+		 	});
+	 	}else{
+
+	 		window.location.reload();
+		 	$state.go('app.login');
+	 	}
+ 
+$scope.voyageur = {
+		User:{
+			email: '',
+			name: '',
+			lastname: '',
+			adress: '',
+			phone: '',
+			image: '',
+			login: ''
+			}
+	  
+	};
 
 
-	});
+$scope.profile = function(files) {
+
+
+	$scope.voyageur.User.image=files.base64;
+
+    ProfileService.profile($scope.voyageur).then(function(msg) {
+
+      var alertPopup = $ionicPopup.alert({
+        title: 'Update success!',
+        template: msg
+      });
+      	window.location.reload();
+		$state.go('app.profile');
+
+    }, function(errMsg) {
+      var alertPopup = $ionicPopup.alert({
+        title: 'update failed!',
+        template: errMsg
+      });
+    });
+  };
 
 });

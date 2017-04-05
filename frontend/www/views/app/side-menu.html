@@ -7,6 +7,11 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+       <button class="button button-icon button-clear ion-ios-search" >
+        </button>
+      </ion-nav-buttons>
+
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
@@ -18,7 +23,8 @@
         <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.profile">
           <div class="user-image-container">
             <pre-img ratio="_1_1" helper-class="rounded-image">
-              <img class="user-image" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg" spinner-on-load ui-sref="app.profile">
+             <!--  <img class="user-image" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg" spinner-on-load ui-sref="app.profile"> -->
+             <img class="user-image" src="data:image/png;base64,{{user.User.image}}" spinner-on-load ui-sref="app.profile"></img>
           	</pre-img>
           </div>
           
@@ -60,16 +66,17 @@
         </ion-item>
         
         
+        
+        <div ng-show="isAuth==true">
         <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.reclamation">
           <i class="icon ion-information-circled"></i>
           <h2 class="menu-text">Reviews</h2>
         </ion-item>
-        <div ng-show="isAuth==true">
           <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.profile">
             <i class="icon ion-gear-a"></i>
             <h2 class="menu-text">Settings</h2>
           </ion-item>
-          <ion-item class="item-icon-left" nav-clear menu-close ui-sref='' ng-click="logout()">
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref='app.station' ng-click="logout()">
           <i class="icon ion-log-out"></i>
           <h2 class="menu-text">Logout</h2>
         </ion-item> 

@@ -11,12 +11,8 @@ angular.module('starter.controllers', [])
 
   $scope.login = function() {
     AuthService.login($scope.user).then(function(msg) {
-      console.log($scope.user);
-      //$state.go('app.station');
-      
-      /*$window.location.href='/#/app/station';*/
-              /*$state.go('app.station', null, {reload: true});*/
-               window.location.reload()
+
+               window.location.reload();
                $state.go('app.station');
                
       
@@ -34,8 +30,11 @@ angular.module('starter.controllers', [])
     console.log("SignupCtrl hsan");
 	  $scope.user = {
     email: '',
-    login: '',
     name: '',
+    lastname: '',
+    adress: '',
+    phone: '',
+    login: '',
     password: ''
   };
  

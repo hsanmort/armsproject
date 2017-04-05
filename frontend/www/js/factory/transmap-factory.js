@@ -3,14 +3,19 @@ angular.module('starter.factories', [])
 	var AppFactory ={
 		drawMarker:function(marker,$transMap){
 			var infowindow = new google.maps.InfoWindow({
-	          	content:"<div style='width:250px;height:100px;'>"+marker.name+"</div>"
+	          	content:" <div ng-non-bindable=''><div style='height:100%;float:left;margin-right:10px;'>"+
+	          				"<img style='border-radius: 24px;width:64px;height:64px;' src=data:image/png;base64,"+marker.image+"></img>"+
+            				"</div><div style='width:256px;'>"+
+            				"<strong>"+marker.name+"</strong><br>"+
+            				"<p>"+marker.description+" </p>"+
+            				"</div></div>"
 	        });
 			$transMap.addMarker({
 	            lat:parseFloat(marker.Pos.lat),
 	            lng:parseFloat(marker.Pos.lng),
 	            id:marker._id,
 	            name:marker.name,
-	            icon:'img/busstop.png',
+	            icon:'img/scholar-bus-stop.png',
 	            draggable: false,
 	        	info:infowindow
 	        });

@@ -11,7 +11,7 @@ var VoyageurSchema =new Schema({
     cin: {type: Number },
 
     User:{
-        email: { type: String, lowercase: true, trim: true }
+         email: { type: String, lowercase: true, trim: true }
 
         , name: { type: String, required: true  }
 
@@ -29,14 +29,16 @@ var VoyageurSchema =new Schema({
         
         , role : { type: String, required: true}
 
+        ,connected : {type: Boolean, default:false}
+
+        ,created: {type: Date,default: Date.now}
+
 
     }
 });
 VoyageurSchema.pre('save', function (next) {
     var voyageur = this;
-    console.log("------------------model now");
-    console.log(voyageur.User.name);
-    console.log(voyageur.User.password);
+
     if (this.isModified('this.User.password') || this.isNew) {
         bcrypt.genSalt(10, function (err, salt) {
             if (err) {
@@ -55,10 +57,26 @@ VoyageurSchema.pre('save', function (next) {
     }
 });
 
+VoyageurSchema.pre('update', function (next) {
+    var voyageur = this;
+
+        bcrypt.genSalt(10, function (err, salt) {
+            if (err) {
+                return next(err);
+            }
+            bcrypt.hash(voyageur.User.password, salt, function (err, hash) {
+                if (err) {
+                    return next(err);
+                }
+                voyageur.User.password = hash;
+                next();
+            });
+        });
+
+});
+
 VoyageurSchema.methods.comparePassword = function (passw, cb) {
-    console.log("problem");
-    console.log(passw);
-    console.log(this.password);
+   
     bcrypt.compare(passw, this.password, function (err, isMatch) {
 
         if (err) {
@@ -68,25 +86,21 @@ VoyageurSchema.methods.comparePassword = function (passw, cb) {
     });
 };
 
-VoyageurSchema.methods.hashPassword= function (next) {
-    var voyageur = this;
+VoyageurSchema.methods.hashPassword= function (password) {
 
-    if (this.isModified('this.User.password') || this.isNew) {
-        bcrypt.genSalt(10, function (err, salt) {
+ bcrypt.genSalt(10, function (err, salt) {
             if (err) {
-                return next(err);
+                return err;
             }
-            bcrypt.hash(voyageur.User.password, salt, function (err, hash) {
+            bcrypt.hash(password, salt, function (err, hash) {
                 if (err) {
-                    return next(err);
+                    return err;
                 }
-                voyageur.User.password = hash;
-                next();
+                return password = hash;
+                
             });
         });
-    } else {
-        return next();
-    }
+    
 };
 
 
