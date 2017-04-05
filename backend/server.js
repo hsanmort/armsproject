@@ -62,9 +62,17 @@ var apiBus = require('./app/routes/bus-route');
 // connect the api routes under /api/*
 app.use('/bus', apiBus);
 
+
 var apiLigne = require('./app/routes/ligne-route');
 // connect the api routes under /api/*
 app.use('/ligne', apiLigne);
+
+var apiReclamation = require('./app/routes/reclamation-route');
+// connect the api routes under /api/*
+app.use('/reclamation', apiReclamation);
+
+
+
 /*
 var uploadPhoto=require('./app/routes/upload-file').uploadFile;
 app.all('/photo_upload', function ( req, res ) {
