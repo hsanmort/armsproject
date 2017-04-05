@@ -7,6 +7,7 @@ angular.module('starter.controllers')
 	$scope.comptespay=[];
 	$scope.hasFilters= false;
 	ComptesPayService.getallaccounts().then(function(result){
+			console.log(result);
 			$scope.comptespay=result;
 			}); 
 	$scope.LoadMoreContent = function() {
@@ -26,12 +27,12 @@ angular.module('starter.controllers')
     //var formData = new $window.FormData();
     //formData.append("file-0", vm.files[0]);
     
-    $http.post(url, files[0])
-     .then(function(response) {
-      vm.result = "SUCCESS";
-      vm.data = response.data.data;
-    }).catch(function(response) {
-      vm.result = "ERROR "+response.status;
-    });
+    // $http.post(url, files[0])
+    //  .then(function(response) {
+    //   vm.result = "SUCCESS";
+    //   vm.data = response.data.data;
+    // }).catch(function(response) {
+    //   vm.result = "ERROR "+response.status;
+    // });
   };
 });
