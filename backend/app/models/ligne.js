@@ -10,9 +10,10 @@ var LigneSchema =new Schema({
 
     name: {type: String,  required: true},
     description: {type: String, required: true},
-    stations : [ Station ]
-
-  
+    stations : [{
+    	station: { type: Schema.Types.ObjectId,ref: 'Station'},
+    	order: {type:Number}
+    }]
 });
 
 module.exports = mongoose.model('Ligne', LigneSchema);

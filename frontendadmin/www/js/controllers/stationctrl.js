@@ -31,7 +31,7 @@ angular.module('starter.controllers')
 	                              "</div>"+
 	                              "<div style='border-style:none;'class='item item-input'>"+
 	                              "<label class='item-input-wrapper'>"+
-	                                 " <input type=file files-input base-sixty-four-input ng-model='files' /><br>"+
+	                                 " <input type=file files-input base-sixty-four-input ng-model='files' ngf-max-size='100KB' /><br>"+
 	                                 "</label>"+
 	                                 "</div>"+
 	                                  "<button ng-click='savestat()'class='button button-small'>enregistrer</button"+
@@ -57,7 +57,6 @@ angular.module('starter.controllers')
 	      }
    		};
    		$scope.savestat=function() {
-   			console.log($scope.files.base64);
 		    if (($scope.stationSave!=null ) && ($scope.stationSave!="")) {
 		       StationService.addStation($stationMap,$scope.currentmarker,$scope,$scope.stationSave,$scope.files.base64).then(function(result){
 		       	$stationMap.removeBy($scope.currentmarker);

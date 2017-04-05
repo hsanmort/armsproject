@@ -1,5 +1,4 @@
 
-var jwt         = require('jwt-simple');
 var Station    = require('../../app/models/station'); // get the mongoose model
 var passport	= require('passport');
 var express     = require('express');

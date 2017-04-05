@@ -62,6 +62,9 @@ var apiBus = require('./app/routes/bus-route');
 // connect the api routes under /api/*
 app.use('/bus', apiBus);
 
+var apiLigne = require('./app/routes/ligne-route');
+// connect the api routes under /api/*
+app.use('/ligne', apiLigne);
 /*
 var uploadPhoto=require('./app/routes/upload-file').uploadFile;
 app.all('/photo_upload', function ( req, res ) {
@@ -70,4 +73,4 @@ app.all('/photo_upload', function ( req, res ) {
 */
 // Start the server
 app.listen(port);
-console.log('There will be dragons: http://localhost:' + port);
+console.log('Bonjour: http://localhost:' + port);

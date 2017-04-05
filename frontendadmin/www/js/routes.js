@@ -69,16 +69,29 @@ angular.module('starter.routes', ['starter.config'])
       authorizedRoles: [USER_ROLES.adminpaiement]
     }
   })
-  //Station
 
+  //Station
   .state('app.station', {
     url: "/station",
     cache:false,
     views: {
       'menuContent': {
         cache:false,
-        templateUrl: "views/app/station/station.html",
+        templateUrl: "views/app/gestionnaire_voyage/station.html",
         controller: 'StationCtrl'
+        }
+    }
+  })
+
+  //ligne
+  .state('app.ligne', {
+    url: "/ligne",
+    cache:false,
+    views: {
+      'menuContent': {
+        cache:false,
+        templateUrl: "views/app/gestionnaire_voyage/ligne.html",
+        controller: 'LigneCtrl'
         }
     }
   });
