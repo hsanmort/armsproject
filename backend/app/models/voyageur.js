@@ -32,7 +32,6 @@ var VoyageurSchema =new Schema({
     ComptePaiement:{
         exist: {type: Boolean, required: true}
 
-
         ,connected : {type: Boolean, default:false}
 
         ,created: {type: Date,default: Date.now}
@@ -64,7 +63,7 @@ VoyageurSchema.pre('save', function (next) {
     }
 });
 
-VoyageurSchema.pre('update', function (next) {
+/*VoyageurSchema.pre('update', function (next) {
     var voyageur = this;
 
         bcrypt.genSalt(10, function (err, salt) {
@@ -80,7 +79,7 @@ VoyageurSchema.pre('update', function (next) {
             });
         });
 
-});
+});*/
 
 VoyageurSchema.methods.comparePassword = function (passw, cb) {
    
@@ -95,19 +94,9 @@ VoyageurSchema.methods.comparePassword = function (passw, cb) {
 
 VoyageurSchema.methods.hashPassword= function (password) {
 
- bcrypt.genSalt(10, function (err, salt) {
-            if (err) {
-                return err;
-            }
-            bcrypt.hash(password, salt, function (err, hash) {
-                if (err) {
-                    return err;
-                }
-                return password = hash;
-                
-            });
-        });
-    
+    var salt = bcrypt.genSaltSync(10);
+    var hash = bcrypt.hashSync("my password", salt);
+    return hash;
 };
 
 

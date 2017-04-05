@@ -127,25 +127,31 @@ apiVoyageur.get('/allvoyageur',function(req, res) {
 });
 
 apiVoyageur.put('/updatprofile/:id',bodyParser,function (req,res) {
-     
-        var newVoyageur= new Voyageur({
-            'User.name': req.body.name,
-            'User.lastname': req.body.lastname,
-            'User.adress': req.body.adress,
-            'User.phone': req.body.phone,
-            'User.password': req.body.password,
-            'User.email': req.body.email,
-            'User.login': req.body.login,
-            'User.role': role           
-        });
-        console.log(req.body.password);
-        delete newVoyageur._id;
 
-        Voyageur.update({_id: req.params.id},newVoyageur,function (err,voyageur) {
+   /*    var newVoyageur= new Voyageur({
+            'User.name': req.body.name,
+            
+            'User.password':req.body.password,
+            'User.email': req.body.email,
+            'User.login': req.body.login          
+        });
+
+
+
+        newVoyageur.User.password= newVoyageur.User.hashPassword(req.body.password); 
+        console.log(newVoyageur.User.password);*/
+        
+        var voy=req.body;
+
+        
+        delete voy._id;
+        Voyageur.update({_id: req.params.id},voy,function (err,voyageur) {
             if (err){
              throw err;
             }else {
-                return res.json({success: true,msg: "update voyageur Successful ", newVoyageur : newVoyageur});
+                var token = jwt.encode(voyageur, config.secret);
+                return res.json({success: true, token: 'JWT ' + token});
+                //return res.json({success: true,msg: "update voyageur Successful ", voy : voy});
             }
 
         });
