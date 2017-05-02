@@ -67,6 +67,10 @@ var apiLigne = require('./app/routes/ligne-route');
 // connect the api routes under /api/*
 app.use('/ligne', apiLigne);
 
+var apiVoyage = require('./app/routes/voyage-route');
+// connect the api routes under /api/*
+app.use('/voyage', apiVoyage);
+
 var apiReclamation = require('./app/routes/reclamation-route');
 // connect the api routes under /api/*
 app.use('/reclamation', apiReclamation);

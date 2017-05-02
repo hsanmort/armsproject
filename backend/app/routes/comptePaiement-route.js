@@ -6,7 +6,6 @@ var express     = require('express');
 var config      = require('../../config/database'); // get db config file
 var mongoose    = require('mongoose');
 
-
 require('../../config/passport')(passport);
 var apiComptePaiement = express.Router();
 
@@ -90,4 +89,5 @@ apiComptePaiement.delete('/removecptpaiement/:id',function (req,res,next) {
 	        });
     	
 });
+
 module.exports=apiComptePaiement;

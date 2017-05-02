@@ -5,6 +5,7 @@ angular.module('starter.map',[])
     function transMap(element,opts){
       this.gMap= new google.maps.Map(element,opts);
       this.markers=list.create();
+      this.stationCircle=list.create();
       if (opts.cluster) {
         this.markerClusterer = new MarkerClusterer(this.gMap, [],opts.cluster.options);
 
@@ -55,6 +56,21 @@ angular.module('starter.map',[])
           });
         }
       return marker;
+    },
+    addCircle: function(opts){
+        var circle;
+        opts.center ={
+          lat: opts.lat,
+          lng: opts.lng
+        }
+      circle=this._createCircle(opts);
+      this.stationCircle.add(circle);
+
+      return circle;
+    },
+    _createCircle: function(opts){
+      opts.map= this.gMap;
+      return new google.maps.Circle(opts);
     },
     _createMarker: function(opts){
       opts.map= this.gMap;

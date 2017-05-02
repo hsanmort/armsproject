@@ -77,7 +77,7 @@ apiStation.put('/updatst/:id',function (req,res,next) {
             'Pos.lng': req.body.lng
         };
 
-        Station.findByIdAndUpdate( req.params.id,newstation,function (err,station) {
+        Station.findByIdAndUpdate( req.params.id,newstation,{new:true},function (err,station) {
             if (err){
              throw err;
             }else {

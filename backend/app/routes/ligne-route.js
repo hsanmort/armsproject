@@ -5,7 +5,7 @@ var passport	= require('passport');
 var express     = require('express');
 var config      = require('../../config/database'); // get db config file
 var mongoose    = require('mongoose');
-
+var bodyParser =require('body-parser').json();
 var apiLigne = express.Router();
 
 apiLigne.post('/add', function(req, res) {
@@ -26,6 +26,19 @@ apiLigne.post('/add', function(req, res) {
             res.json({success: true, msg: 'Successful created new ligne.', ligne: newligne});
         });
     }
+});
+apiLigne.put('/update/:id',bodyParser,function (req,res,next) {
+
+    var ligne =req.body;
+    console.log(ligne);
+    Ligne.findByIdAndUpdate(ligne._id,ligne,function(err,li){
+       if (err){
+         throw err;
+        }else {
+            return res.json({success: true,msg: "update station Successful ",ligne:li});
+        }
+    });
+
 });
 apiLigne.post('/addst', function(req, res) {
     
@@ -60,15 +73,13 @@ apiLigne.post('/updatest', function(req, res) {
         res.json({success: false, msg: 'Please pass name of station.'});
     } else {
     Ligne.findById(req.body.id, function(err, ligne) {
-            var station={
-                station:req.body.station,
-                order:req.body.order
-            };
             
+            var stations= req.body.stations;
 
-            ligne.stations.push(station);
+            ligne.stations=stations; 
             console.log(ligne);
-            Ligne.findByIdAndUpdate( ligne._id,ligne,{new:true})
+            ligne.save();
+            Ligne.findById( ligne._id)
             .populate('stations.station','-image')
             .exec(function (err,li) {
                 if (err){
@@ -81,6 +92,7 @@ apiLigne.post('/updatest', function(req, res) {
  
     }
 });
+
 apiLigne.get('/all', function(req, res) {
     Ligne.find()
     .populate('stations.station','-image')

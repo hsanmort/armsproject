@@ -12,10 +12,8 @@ var StationSchema =new Schema({
     description:{type: String},
 
     Pos:{
-
         lat: { type: Number, required: true },
         lng: { type: Number, required: true}
-
     }
 });
 

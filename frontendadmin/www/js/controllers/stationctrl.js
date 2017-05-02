@@ -63,6 +63,7 @@ angular.module('starter.controllers')
 		       	$stationMap.markers.remove($scope.currentmarker);
 		       	delete $scope.currentmarker;
 		       	delete $scope.stationSave;
+		       	delete $scope.files.base64;
 		       	TransmapFact.drawMarker(result,$stationMap);
 		       	var found =$stationMap.findBy(function(marker){
 		                	return marker.id==result._id;
@@ -99,11 +100,20 @@ angular.module('starter.controllers')
 		       	}
 		    });
 		};
+		  $scope.gotoPosStation=function ($id) {
+              $stationMap.zoom(15);
+              var found =$stationMap.findBy(function(marker){
+                return marker.id==$id;
+              });
+              $stationMap.gMap.setCenter(found[0].getPosition());
+            }
 		$scope.selectedModif=false;
 		$scope.modifier= function(st) {
+			$stationMap.zoom(15);
+			$scope.gotoPosStation(st._id);
 	    	if($scope.selectedModif==false){
 	        	$scope.selectedModif=true;
-	        	$stationMap.zoom(15);
+	        	
 	        	var content="<div  class='list' style='height:50px;width:300px;overflow:hidden;'>"+
 			                     "<div style='border-style:none;'class='item item-input'>"+
 			                       "<label class='item-input-wrapper'>"+
@@ -119,16 +129,12 @@ angular.module('starter.controllers')
 			      title: 'attention',
 			      template: 'veuillez terminer la modification en cour'
 			    });
-			    alertPopup.then(function(res) {
-			      google.maps.event.addListener($stationMap.gMap,"click",function(e){
-			        StationService.addStation(e.latLng.lat(),e.latLng.lng(),$stationMap,compiled,$scope);
-			        google.maps.event.clearListeners($stationMap.gMap, 'click');
-			      });
-			    });
 	  		}
    		}
    		$scope.updatstat= function(){
 			if (($scope.stationUpdat!=null ) && ($scope.stationUpdat!="") ) {
+			
+	     		console.log($scope.found[0].getPosition().lat());
 				$stationMap.removeBy($scope.found[0]);
 				$stationMap.markers.remove($scope.found[0]);
 				StationService.stationUpdate($scope,$scope.found[0],$stationMap,$scope.stationUpdat).then(function(result){
@@ -142,6 +148,7 @@ angular.module('starter.controllers')
 			       	TransmapFact.addInfoWindowListner(found[0],$stationMap);
 				});
 				$scope.selectedModif=false;
+				console.log($scope.selectedModif);
 				delete $scope.found;
 				delete $scope.stationUpdat;
 			}

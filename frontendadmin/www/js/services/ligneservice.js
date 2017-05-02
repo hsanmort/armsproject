@@ -28,6 +28,21 @@ angular.module('starter.services')
 	      });
 	      return q.promise;
 	 	},
+	 	updateLigne:function(ligne) {
+			var q=$q.defer();
+			var data = {
+	            ligne: ligne
+        	};
+	      $http.put(API_ENDPOINT.url + 'ligne/update/'+ligne._id,data).then(function(result) {
+	        if (result.data.ligne) {
+	        	console.log("ok");
+	          q.resolve(result.data.ligne);
+	        } else {
+	          q.reject(result.data.msg);
+	        }
+	      });
+	      return q.promise;
+	 	},
 	 	addstL:function(station,ligne,order,scope) {
 			var q=$q.defer();
 			var data = {
@@ -44,12 +59,11 @@ angular.module('starter.services')
 	      });
 	      return q.promise;
 	 	},
-	 	changeOrder:function(ligne,station){
+	 	changeOrder:function(ligne,stations){
 		var q=$q.defer();
-			var data = {
+        	var data = {
 	            id: ligne,
-	            station: station.station._id,
-	            order:station.order
+	            stations:stations
         	};
 	      $http.post(API_ENDPOINT.url + 'ligne/updatest',data).then(function(result) {
 	        if (result.data.ligne) {

@@ -10,6 +10,7 @@ var LigneSchema =new Schema({
 
     name: {type: String,  required: true},
     description: {type: String, required: true},
+    duree:{type:Number},
     stations : [{
     	station: { type: Schema.Types.ObjectId,ref: 'Station'},
     	order: {type:Number}

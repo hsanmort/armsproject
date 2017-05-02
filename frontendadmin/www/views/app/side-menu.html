@@ -1,6 +1,7 @@
 <ion-side-menus enable-menu-with-back-views="false">
   <ion-side-menu-content class="post-size-14px">
-    <ion-nav-bar class="bar app-top-bar">
+    <ion-nav-bar class="bar app-top-bar" style="opacity:0.8;">
+
       <ion-nav-back-button>
       </ion-nav-back-button>
       <ion-nav-buttons side="left">
@@ -17,20 +18,32 @@
         <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.profile">
           <div class="user-image-container">
             <pre-img ratio="_1_1" helper-class="rounded-image">
-              <img class="user-image" ng-src="https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg" spinner-on-load>
+              <img class="user-image" ng-src="img/Untitled-7.png" spinner-on-load>
           	</pre-img>
           </div>
           <h2 class="greeting">{{user.name}}</h2>
           <p class="message">Welcome back</p>
         </ion-item>
         <div ng-if="user.role=='adminpay_role'">
+           <ion-item class="item-icon-left " nav-clear menu-close ui-sref="app.maps">
+            <i class="icon ion-wand"></i>
+            <h2 class="menu-text">Acceuil</h2>
+          </ion-item>
           <ion-item class="item-icon-left " nav-clear menu-close ui-sref="app.station">
             <i class="icon ion-wand"></i>
-            <h2 class="menu-text">Gestion Station</h2>
+            <h2 class="menu-text">Gestion Stations</h2>
           </ion-item>
            <ion-item class="item-icon-left " nav-clear menu-close ui-sref="app.ligne">
             <i class="icon ion-wand"></i>
-            <h2 class="menu-text">Gestion Ligne</h2>
+            <h2 class="menu-text">Gestion Lignes</h2>
+          </ion-item>
+          <ion-item class="item-icon-left " nav-clear menu-close ui-sref="app.voyage">
+            <i class="icon ion-wand"></i>
+            <h2 class="menu-text">Gestion Voyages</h2>
+          </ion-item>
+          <ion-item class="item-icon-left " nav-clear menu-close ui-sref="app.bus">
+            <i class="icon ion-wand"></i>
+            <h2 class="menu-text">Gestion bus</h2>
           </ion-item>
         </div>
 

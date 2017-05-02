@@ -12,6 +12,7 @@ angular.module('starter', [
   'ionic',
   'naif.base64',
   'angularMoment',
+  'ui.sortable',
   'starter.controllers',
   'starter.factories',
   'starter.routes',

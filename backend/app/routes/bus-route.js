@@ -5,33 +5,29 @@ var passport	= require('passport');
 var express     = require('express');
 var config      = require('../../config/database'); // get db config file
 var mongoose    = require('mongoose');
-
+var bodyParser = require('body-parser').json();
 var apiBus = express.Router();
 
-apiBus.post('/addbs', function(req, res) {
-    if (!req.body.available ) {
-        res.json({success: false, msg: 'Please pass the availablity of the bus.'});
+apiBus.post('/add', function(req, res) {
+    if (!req.body.matricule ) {
+        res.json({success: false, msg: 'Please pass the matricule of the bus.'});
     } else {
         var newBus = new Bus({
-            'available': req.body.available,
-            'speed': req.body.speed,
-            'numberp': req.body.numberp
+            'matricule': req.body.matricule,
         });
-        console.log(newBus);
-        // save the user
         newBus.save(function(err) {
-            console.log("here");
             if (err) {
                 console.log(err);
                 return res.json({success: false, msg: 'Erreur.'});
             }
-            res.json({success: true, msg: 'Successful created new Bus.'});
+            res.json({success: true, msg: 'Successful created new Bus.',bus: newBus});
         });
     }
 });
-apiBus.get('/allbs', function(req, res) {
-    Bus.find({
-    }, function(err, buss) {
+apiBus.get('/all', function(req, res) {
+    Bus.find()
+    .populate('voyage')
+    .exec( function(err, buss) {
         if (err) throw err;
 
         if (!buss) {
@@ -44,7 +40,7 @@ apiBus.get('/allbs', function(req, res) {
     });
 });
 
-apiBus.get('/getbs/:id', function(req, res) {
+apiBus.get('/get/:id', function(req, res) {
     Bus.findById(req.params.id, function(err, bus) {
         if (err) throw err;
 
@@ -58,7 +54,7 @@ apiBus.get('/getbs/:id', function(req, res) {
     });
 });
 
-apiBus.delete('/removebs/:id',function (req,res,next) {
+apiBus.delete('/remove/:id',function (req,res,next) {
 
         Bus.findByIdAndRemove(req.params.id, function (err,bus) {
             if (err){
@@ -71,19 +67,17 @@ apiBus.delete('/removebs/:id',function (req,res,next) {
 
 });
 
-apiBus.put('/updatbs/:id',function (req,res,next) {
+apiBus.put('/update/:id',bodyParser,function (req,res,next) {
+        var newBus = req.body;
+        console.log(req.body.voyage);
+        delete newBus._id;
 
-     var newBus = {
-            'available': req.body.available,
-            'speed': req.body.speed,
-            'numberp': req.body.numberp
-        };
         console.log(req.params.id);
-        Bus.findByIdAndUpdate( req.params.id,newBus,function (err,bus) {
+        Bus.findByIdAndUpdate( req.params.id,newBus,{new: true},function (err,bus) {
             if (err){
              throw err;
             }else {
-                return res.json({success: true,msg: "update Bus Successful "+bus});
+                return res.json({success: true,msg: "update Bus Successful ",bus:bus});
             }
 
         });

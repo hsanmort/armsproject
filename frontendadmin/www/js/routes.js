@@ -49,7 +49,7 @@ angular.module('starter.routes', ['starter.config'])
       'menuContent': {
         cache:false,
         templateUrl: "views/app/miscellaneous/maps.html",
-        controller: 'MapsCtrl'
+        controller: 'MapCtrl'
       }
     },
     data: {
@@ -82,7 +82,30 @@ angular.module('starter.routes', ['starter.config'])
         }
     }
   })
-
+  //voyage
+  .state('app.voyage', {
+    url: "/voyage",
+    cache:false,
+    views: {
+      'menuContent': {
+        cache:false,
+        templateUrl: "views/app/gestionnaire_voyage/voyage.html",
+        controller: 'VoyageCtrl'
+        }
+    }
+  })
+  //bus
+    .state('app.bus', {
+    url: "/bus",
+    cache:false,
+    views: {
+      'menuContent': {
+        cache:false,
+        templateUrl: "views/app/gestionnaire_voyage/bus.html",
+        controller: 'BusCtrl'
+        }
+    }
+  })
   //ligne
   .state('app.ligne', {
     url: "/ligne",

@@ -34,7 +34,7 @@ angular.module('starter.controllers')
 				    text: '<b>enregistrer</b>',
 				    type: 'button-positive',
 				    onTap: function(e) {
-				      if ((!$scope.data.numligne)&&(!$scope.data.nomligne)) {
+				      if ((!$scope.data.numligne)||(!$scope.data.nomligne)) {
 				        e.preventDefault();
 				      }else {
 				        $scope.enregistrer=true;
@@ -79,7 +79,6 @@ angular.module('starter.controllers')
 	        $scope.stat=group.stations;
 	          $scope.currenetLigne= group;
 	          $scope.currenetLigneShow=group.name;
-	          console.log($scope.currenetLigne);
 	          if ($scope.currenetLigne.stations.length!=0) {
 	            $scope.drawLigne($scope.currenetLigne);
 	          }
@@ -95,41 +94,52 @@ angular.module('starter.controllers')
 	      }
 	    };
 	    $scope.moveItem=function(st,fromIndex,toIndex){
-      if (toIndex< $scope.stat.length) {
-        $scope.stat.splice(fromIndex,1);
-        $scope.stat.splice(toIndex,0,st);
-        if (toIndex>fromIndex) {
-          for (var i = fromIndex; i <= $scope.stat.length-1; i++) {
-            $scope.stat[i].order=i+1;
-            serviceLigne.changeOrder($scope.currenetLigne._id,$scope.stat[i]);
-          }
-        }else if (toIndex<fromIndex) {
-          for (var j = toIndex; j <= fromIndex; j++) {
-            $scope.stat[j].order=j+1;
-            serviceLigne.changeOrder($scope.currenetLigne._id,$scope.stat[j]);
-          }
-        }
-        $scope.currenetLigne.stations=$scope.stat;
-        $scope.directionDisplay.setMap(null);
-        $scope.drawLigne($scope.currenetLigne);
-      }
-    }
+	      if (toIndex< $scope.stat.length) {
+	        $scope.stat.splice(fromIndex,1);
+	        $scope.stat.splice(toIndex,0,st);
+	        if (toIndex>fromIndex) {
+	          for (var i = fromIndex; i <= $scope.stat.length-1; i++) {
+	            $scope.stat[i].order=i+1;	            
+	            
+	          }
+	        }else if (toIndex<fromIndex) {
+	          for (var j = toIndex; j <= fromIndex; j++) {
+	            $scope.stat[j].order=j+1;
+	          }
+	        }
+	        LigneService.changeOrder($scope.currenetLigne._id,$scope.stat);
+	        $scope.currenetLigne.stations=$scope.stat;
+	        $scope.directionDisplay.setMap(null);
+	        $scope.drawLigne($scope.currenetLigne);
+	      }
+	    }
 	    $scope.isGroupShown = function(group) {
 	      return group.show;
 	    };
 	    $scope.addst=function (sta) {
         	LigneService.addstL(sta,$scope.currenetLigne,$scope.stat.length+1,$scope).then(function(result){
-        		console.log($scope.currenetLigne);
         		var searchs=document.getElementById("searchS");
         		searchs.value="";
         		$scope.searchStat();
         		var found= $filter('filter')(result.stations,{order:$scope.stat.length+1}, true);
             	$scope.currenetLigne.stations.push(found[0]);
             	console.log($scope.currenetLigne);
-            	$scope.directionDisplay.setMap(null);
+            	if ($scope.directionDisplay) {
+	          		$scope.directionDisplay.setMap(null);
+	        	}
             	$scope.drawLigne($scope.currenetLigne);
         	});
     	};
+	    $scope.removeSt=function (id,index) {
+      			$scope.stat.splice(index, 1);
+				for (var i = index; i < 	$scope.stat.length; i++) {
+					$scope.stat[i].order= i+1;
+				}
+				LigneService.changeOrder($scope.currenetLigne._id,$scope.stat);
+				$scope.currenetLigne.stations=$scope.stat;
+				$scope.directionDisplay.setMap(null);
+				$scope.drawLigne($scope.currenetLigne);
+	    }
 	    $scope.searchStat=function () {
 	      var searchs=document.getElementById("searchS");
 	      $scope.searchs=searchs.value;
@@ -143,7 +153,7 @@ angular.module('starter.controllers')
 	      if (searchs.value!="") {
 	        if (!$scope.testRes) {
 	          var searchbar=document.getElementById("searchbar");
-	          var content='<ion-list id="searchRes"><ion-item class="searchRes" ng-repeat="sta in stations |filter:searchs" ng-click="addst(sta)">{{sta.name}}</ion-item></ion-list>';
+	          var content='<ion-list id="searchRes"><ion-item class="searchRes" ng-repeat="sta in stations |filter: {name:searchs}" ng-click="addst(sta)">{{sta.name}}</ion-item></ion-list>';
 	          var compiled = $compile(content)($scope);
 	        var searchRes=document.getElementById("searchRes");
 	        searchRes.replaceWith(compiled[0]);
@@ -151,7 +161,7 @@ angular.module('starter.controllers')
 	        $scope.testRes=true;
 	        }
 	        else{
-	          var content='<ion-list id="searchRes"><ion-item class="searchRes" ng-repeat="sta in stations |filter:searchs" ng-click="addst(sta)">{{sta.name}}</ion-item></ion-list>';
+	          var content='<ion-list id="searchRes"><ion-item class="searchRes" ng-repeat="sta in stations |filter:{name: searchs}" ng-click="addst(sta)">{{sta.name}}</ion-item></ion-list>';
 	          var compiled = $compile(content)($scope);
 	        var se=document.getElementById("searchRes");
 	        se.replaceWith(compiled[0]);
@@ -167,6 +177,8 @@ angular.module('starter.controllers')
             }
         $scope.drawLigne=function (ligne) {
         	console.log();
+        	
+        	if ($scope.currenetLigne.stations.length>2) {
 	      $scope.directionService= new google.maps.DirectionsService();
 	      $scope.directionDisplay= new google.maps.DirectionsRenderer({
 	        'map':$ligneMap.gMap
@@ -193,12 +205,24 @@ angular.module('starter.controllers')
 	      var request = {
 	        origin: origin.getPosition(),
 	        destination: destination.getPosition(),
+	        drivingOptions :{
+	        	    departureTime: new Date(Date.now() ),  // for the time N milliseconds from now.
+    				trafficModel: 'optimistic'
+	        },
 	        waypoints:waypts,
 	        travelMode: google.maps.DirectionsTravelMode.DRIVING,
 	        unitSystem: google.maps.DirectionsUnitSystem.METRIC
 	      };
 	      $scope.directionService.route(request,function(response,status){
 	        if (status == google.maps.DirectionsStatus.OK) {
+	        	var totalTime=0;
+	        	for(var i = response.routes[ 0 ].legs.length - 1; i >=0; i--) {
+	        	console.log(response.routes[ 0 ].legs[i].duration.text);
+				totalTime+=response.routes[ 0 ].legs[i].duration.value;
+	        	}
+	        	$scope.currenetLigne.duree=totalTime;
+	        	LigneService.updateLigne($scope.currenetLigne);
+	        	console.log(Math.ceil($scope.currenetLigne.duree/60));
 	          $scope.directionDisplay.setDirections(response);
 	          $scope.directionDisplay.setOptions({
 	            polylineOptions:{strokeColor: '#00FF77'},
@@ -207,6 +231,7 @@ angular.module('starter.controllers')
 	          });
 	        }
 	      });
+	    };
 	    };
 	});
 });

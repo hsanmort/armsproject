@@ -391,4 +391,3 @@ angular.module('starter.directives', [])
       }
   };
 });
-

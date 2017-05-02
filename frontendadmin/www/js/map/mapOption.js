@@ -3,11 +3,15 @@ var mapOption;
 function optionInt(latLng) {
 mapOption={
   center:latLng ,
-  zoom: 10,
+  zoom: 15,
   disableDefaultUI:false,
   scrollwheel: true,
   draggable: true,
   mapTypeId: google.maps.MapTypeId.ROADMAP,
+            mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+              position: google.maps.ControlPosition.BOTTOM_CENTER
+          },
   zoomControlOptions:{
     position:  google.maps.ControlPosition.LEFT_BOTTOM,
     style: google.maps.ZoomControlStyle.DEFAULT
@@ -17,6 +21,7 @@ mapOption={
   },
   cluster: {  // initialisation cluster
     options:{
+      maxZoom: 12,
       styles:[{
         url: 'img/m1.png',
               height:56,

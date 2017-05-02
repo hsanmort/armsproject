@@ -18,7 +18,6 @@ var AppService ={
       $http.delete(API_ENDPOINT.url + 'station/removest/'+marker._id)
         .then(function(result) {
         	if (result.data.station) {
-        		console.log("ok");
           		q.resolve(result.data.station);
         	} else {
           		q.reject(result.data.msg);
@@ -30,8 +29,8 @@ var AppService ={
     var q=$q.defer();
     var data = {
             name: stationName,
-            lat: marker.lat,
-            lng:marker.lng
+            lat: marker.getPosition().lat(),
+            lng:marker.getPosition().lng()
         };
    $transMap.removeBy(marker);
     $http.put(API_ENDPOINT.url + 'station/updatst/'+marker.id,data)

@@ -9,13 +9,7 @@ var Schema = mongoose.Schema;
 var PosbusSchema =new Schema({
     lat: {type: Number,  required: true},
     lng: {type: Number, required: true},
-    
-    BusId:{
-    	type: Schema.Types.ObjectId, 
-    	ref:Bus
-    }
 
-  
 });
 
 module.exports = mongoose.model('Posbus', PosbusSchema);

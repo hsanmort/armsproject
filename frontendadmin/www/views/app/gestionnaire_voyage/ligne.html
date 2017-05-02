@@ -1,5 +1,5 @@
 <ion-view view-title="Gestion Ligne">
-    <ion-content>
+    <ion-content >
       <div class="row">
         <div class="col col-50">
         <div id="map" data-tap-disabled="true" style="height:45vh;" ></div>
@@ -42,14 +42,14 @@
             <ion-scroll has-bouncing="true"  direction="y" style="overflow: hidden;height: 470px;">
             <ion-list show-reorder="true" style="margin-top:10px;">
 
-              <div ng-repeat="li in ligne |filter:search">
+              <div ng-repeat="li in ligne |filter:{name:search}">
                 <ion-item class="enable-pointer-events" ng-click="toggleGroup(li)" ng-class="{active: isGroupShown(li)}">
                   <a  class="item-icon-left dark"style="text-decoration: none;">
                    <i  class="icon ion-arrow-graph-up-right stable" ></i>
                    {{li.name}} : {{li.description}}
                  </a>
                   <a style="float:right;"  ><i class="icon item-icon-left" ng-class="isGroupShown(li) ? 'ion-minus' : 'ion-plus'"></i></a>
-                  <a style="float:right;"  ng-click="removeLi(li,$index)"><i class="enable-pointer-events icon item-icon-left ion-android-cancel"></i></a>
+                  <a style="float:right;"  ng-click="removeLi(ngli,$index)"><i class="enable-pointer-events icon item-icon-left ion-android-cancel"></i></a>
 
                </ion-item>
                <ion-list show-reorder="true" style="margin-top:10px">
